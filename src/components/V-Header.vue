@@ -21,10 +21,22 @@
         ></v-text-field>
       </v-responsive>
 
-      <v-btn>
+      <v-btn
+        @click="push()"
+      >
         Sign In/Sign Up
       </v-btn>
 
     </v-container>
   </v-app-bar>
 </template>
+
+<script>
+  export default {
+    methods: {
+      push() {
+        this.$router.push({ name: 'PageAuthorization' })
+      }
+    }
+  }
+</script>

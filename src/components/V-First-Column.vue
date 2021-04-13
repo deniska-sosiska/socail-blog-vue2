@@ -2,11 +2,11 @@
   <v-col cols="2">
     <v-sheet rounded="lg">
       <v-list>
-        <v-list-item-group v-model="item" color="primary">
+        <!-- <v-list-item-group v-model="item" color="primary"> -->
           <v-list-item
             v-for="(item, index) in li"
             :key="index"
-            link
+            class="pa-0"
           >
             <router-link 
               :to="item.link"
@@ -23,19 +23,22 @@
 
           <v-divider class="my-2"></v-divider>
 
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>
-                <router-link
-                  :to="'/profile'"
-                  class="links"
-                >
+          <v-list-item
+            class="pa-0"
+          >
+            <router-link
+              :to="'/profile'"
+              class="links"
+            >
+              <v-list-item-content>
+                <v-list-item-title>
                   Profile
-                </router-link>
-              </v-list-item-title>
-            </v-list-item-content>
+                </v-list-item-title>
+              </v-list-item-content>
+            </router-link>
+            
           </v-list-item>
-        </v-list-item-group>
+        <!-- </v-list-item-group> -->
 
       </v-list>
     </v-sheet>
@@ -65,5 +68,11 @@
 <style scoped>
   .links {
     color: black;
+    padding: 0px 16px;
+    outline: none;
   }
+  .links:hover {
+    background: #BBDEFB;
+  }
+
 </style>

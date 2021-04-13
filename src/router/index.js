@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import PagePosts from "@/views/V-Posts";
 import PageUsers from "@/views/V-Users";
 import PageProfile from "@/views/V-Profile"
+import PageAuthorization from "@/views/V-Authorization"
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: PageProfile,
+  },
+  {
+    path: "/auth",
+    name: "PageAuthorization",
+    component: PageAuthorization,
   }
 ];
 
