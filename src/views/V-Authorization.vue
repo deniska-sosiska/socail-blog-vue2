@@ -11,22 +11,31 @@
       <div
         class="button"
         :class="buttonActive ? 'active' : '' "
-        @click="buttonActive = !buttonActive"
+        @click="buttonActive = true"
       ><button>Sign In</button>
       </div>
 
       <div 
         class="button"
         :class="!buttonActive ? 'active' : '' "
-        @click="buttonActive = !buttonActive"
+        @click="buttonActive = false"
       ><button>Sign Up</button>
 
       </div>
 
     </div>
 
-    <VueForm v-if="buttonActive" titleForm="Sign In" />
-    <VueForm v-else titleForm="Sign Up" />
+    <VueForm
+      v-if="buttonActive"
+      nameForm="Sign In"
+      :key="1"
+    />
+    
+    <VueForm 
+      v-else
+      nameForm="Sign Up"
+      :key="2"
+    />
       
     </v-sheet>
   </v-col>
@@ -36,23 +45,29 @@
   import VueForm from '@/components/V-Form.vue'
 
   export default {
+    
     components: {
       VueForm
     },
+
     data: () => ({
       buttonActive: true
     })
+
   }
 </script>
 
 <style scoped>
   .forms {
+    padding: 0 0 15px 0;
     margin: 0 auto;
     margin-top: 100px;
+    border-radius: 4px !important;
   }
   .buttons {
     display: flex;
-    border-radius: 8xp;
+    border-radius: 0px;
+    /* border: 1px solid; */
   }
   .button {
     width: 50%;

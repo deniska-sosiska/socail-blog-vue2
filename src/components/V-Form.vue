@@ -3,11 +3,12 @@
     ref="form"
     v-model="valid"
   >
-    <p class="titleForm">{{ titleForm }}</p>
+    <p class="nameForm">{{ nameForm }}</p>
 
     <v-text-field
+      v-if="nameForm == 'Sign Up'"
       v-model="login"
-      :counter="cuontLetters"
+      :counter="countLetters"
       :rules="loginRules"
       label="Login"
       required
@@ -31,51 +32,76 @@
     ></v-text-field>
 
     <div class="buttons">
-      <v-btn>
-        Submit
-      </v-btn>
+      <v-btn
+        @click="registrationORauthorization()"
+      >Submit</v-btn>
 
       <v-btn
         @click="login = password = email = ''"
-      >
-        Reset form
-      </v-btn>
-      <v-btn>
-        Cansel
-      </v-btn>
+      >Reset form</v-btn>
+
+      <v-btn
+        @click="$router.push({ name: 'Posts' })" 
+      >Cansel</v-btn>
     </div>
 
   </v-form>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
+    name: "VueForm",
+
     props: {
-      titleForm: {
+      nameForm: {
         type: String,
         Default: "Sign In"
       }
     },
+
     data: () => ({
       login: '',
-      password: '',
-      email: '',
+      password: 'deniska3',
+      email: 'denchikarabik@gmail.com',
 
-      cuontLetters: 25,
+      countLetters: 25,
       valid: true,
 
       loginRules: [
         v => !!v || 'Login is required',
-        v => (v && v.length <= 10) || `Login must be less than ${this.cuontLetters} characters`,
+        // v => (v && v.length <= 10) || `Login must be less than ${this.countLetters} characters`,
       ],
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ]
     }),
+
     methods: {
-      resetForm() {
-      }
+      registrationORauthorization() {
+        if (this.nameForm == "Sign In") this.authorization()
+        else if (this.nameForm == "Sign Up") this.registration()
+        else console.error('Error in "registrationORauthorization": ' + 'unknown props: ' + this.nameForm)
+      },
+
+      authorization() {
+        this.createCurrentUser({
+          email: this.email,
+          password: this.password
+        })
+      },
+
+      registration() {
+        this.createNewUser({
+          name: this.login,
+          email: this.email,
+          password: this.password
+        })
+      },
+
+      ...mapActions(['createCurrentUser', 'createNewUser'])
     }
   }
 </script>
@@ -84,7 +110,7 @@
   form {
     padding: 10px 50px;
   }
-  .titleForm {
+  .nameForm {
     text-align: center;
     font-size: 28px;
     margin: 10px 0px;
@@ -92,10 +118,9 @@
   }
   .buttons {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
   button {
-    margin-left: 25px;
-    margin-top: 25px;
+    margin: 25px 0px 0px 25px;
   }
 </style>
