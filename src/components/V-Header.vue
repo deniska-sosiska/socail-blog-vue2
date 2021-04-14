@@ -22,7 +22,7 @@
       </v-responsive>
 
       <v-btn
-        @click="push()"
+        @click="$router.push({ name: 'PageAuthorization' })"
       >
         Sign In/Sign Up
       </v-btn>
@@ -33,10 +33,6 @@
 
 <script>
   export default {
-    methods: {
-      push() {
-        this.$router.push({ name: 'PageAuthorization' })
-      }
-    }
+    
   }
 </script>

@@ -45,8 +45,7 @@
           <v-icon>mdi-share-variant</v-icon>
         </v-btn>
       </v-card-actions>
-    </v-card>
-    <!--  -->
+      </v-card>
 
   </v-col>
 </template>
