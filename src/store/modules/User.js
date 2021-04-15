@@ -15,7 +15,7 @@ const mutations = {
 const actions = {
   async checkAuthUser({ commit }, payload) {
     const res = await getUserDataByToken(payload)
-    console.log("store:", res)
+
     commit("setCurrentUserData", res)
     commit("isLoaded")
   }
