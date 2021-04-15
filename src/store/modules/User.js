@@ -4,6 +4,7 @@ import { getUserDataByToken } from '@/services/auth.service.js'
 const mutations = {
   setCurrentUserData(state, payload) {
     state.userData = payload
+    localStorage.setItem("userData", JSON.stringify(payload))
   },
   clearCurrentUserData(state) {
     state.userData = null

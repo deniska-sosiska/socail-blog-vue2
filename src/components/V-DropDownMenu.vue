@@ -1,0 +1,63 @@
+<template>
+  <v-menu
+      bottom
+      origin="center center"
+      transition="scale-transition"
+      :open-on-hover="true"
+      :offset-y="true"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          v-bind="attrs"
+          v-on="on"
+        >
+          Menu
+        </v-btn>
+      </template>
+
+      <v-list>
+
+        <v-list-item>
+          <button @click="routerPush()">
+            <p>Name: {{ name }}</p>
+          </button>
+        </v-list-item>
+
+        <v-list-item>
+          <button @click="clearUser()">
+            <p>Sign Out</p>
+          </button>
+        </v-list-item>
+
+      </v-list>
+    </v-menu>
+</template>
+
+<script>
+  export default {
+    name: "VueDropDowmMenu",
+
+    computed: {
+      name() {
+        return this.$store.getters.userData.name
+      }
+    },
+    methods: {
+      clearUser() {
+        this.$store.commit("clearCurrentUserData")
+        if (this.$router.currentRoute.path != '/') 
+          this.$router.push({ name: "Posts" })
+      },
+      routerPush() {
+        this.$router.push({ name: "Profile" })
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  button {
+    width: 100%;
+    text-align: start;
+  }
+</style>

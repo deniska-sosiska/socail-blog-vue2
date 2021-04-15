@@ -29,8 +29,14 @@ export const apiRequest = async ({ url, body = {}, method, token = '' }) => {
     }
   }
   catch(err) {
-    throw {
-      errorMessage: err.response.data.error
-    }
+    const errObj = err.response.data
+    
+    if (errObj.error[0].message) 
+      throw {
+        errorMessage: errObj.error[0].message
+      }
+    else throw {
+        errorMessage: errObj.error
+      }
   }
 }

@@ -21,19 +21,20 @@
         ></v-text-field>
       </v-responsive>
 
-      <v-btn
+      <v-btn 
         v-if="!userData"
-        @click="$router.push({ name: 'PageAuthorization' })"
+        class="buttons"
+        @click="routerPush()"
       >
         Sign In/Sign Up
       </v-btn>
 
-      <v-btn
+      <div
         v-else
-        @click="clearUser()"
+        class="buttons"
       >
-        Sign out from account
-      </v-btn>
+        <VueDropDownMenu />
+      </div>
 
     </v-container>
   </v-app-bar>
@@ -41,17 +42,28 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import VueDropDownMenu from "./V-DropDownMenu"
+
   export default {
     name: "VueHeader",
 
+    components: {
+      VueDropDownMenu
+    },
+
     computed: mapGetters(['userData']),
-    
+
     methods: {
-      clearUser() {
-        this.$store.commit("clearCurrentUserData")
-        if (this.$router.currentRoute.path != '/') 
-          this.$router.push({ name: "Posts" })
+      routerPush() {
+        if (this.$router.currentRoute.path != '/auth') 
+          this.$router.push({ name: 'PageAuthorization' })
       }
     }
   }
 </script>
+
+<style scoped>
+  .buttons {
+    width: 150px;
+  }
+</style>

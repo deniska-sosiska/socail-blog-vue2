@@ -42,7 +42,7 @@
       >Submit</v-btn>
 
       <v-btn
-        @click="login = password = email = ''"
+        @click="resetForm()"
       >Reset form</v-btn>
 
       <v-btn
@@ -116,6 +116,7 @@
           this.$store.dispatch("checkAuthUser", res.token)
           this.$router.push({ name: "Posts" })
         }
+        this.resetForm()
       },
 
       async registration() {
@@ -129,6 +130,10 @@
         setTimeout(() => {
           this.errorMessageFlag = false
         }, 3200);
+      },
+
+      resetForm() {
+        this.login = this.password = this.email = ''
       }
       // ...mapActions(['createCurrentUser', 'createNewUser'])
     }
