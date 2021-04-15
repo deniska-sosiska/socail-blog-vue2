@@ -1,40 +1,31 @@
-import { authCurrentUser, registrationUser } from '@/services/auth.service.js'
+import { getUserDataByToken } from '@/services/auth.service.js'
+// import { authCurrentUser, registrationUser, getUserDataByToken } from '@/services/auth.service.js'
 
 const mutations = {
-  setCurrentUser(state, payload) {
-    state.user = payload.user
-    localStorage.setItem("userData", payload.user)
-
-    state.token = payload.token
-    localStorage.setItem("token", payload.token)
+  setCurrentUserData(state, payload) {
+    state.userData = payload
   },
-  currentUserLogOut(state) {
-    state.user = {}
-    state.token = ""
+  clearCurrentUserData(state) {
+    state.userData = null
+    localStorage.removeItem("token")
   }
 }
 
 const actions = {
-  async createCurrentUser({ commit }, payload) {
-    const res = await authCurrentUser(payload)
-    const data = {
-      user: payload,
-      token: res
-    }
-    commit('setCurrentUser', data)
-  },
-  async createNewUser({ dispatch }, payload) {
-    await registrationUser(payload)
-
-    dispatch('createCurrentUser', payload)
+  async checkAuthUser({ commit }, payload) {
+    const res = await getUserDataByToken(payload)
+    console.log("store:", res)
+    commit("setCurrentUserData", res)
+    commit("isLoaded")
   }
 }
 
-const getters = {}
+const getters = {
+  userData: ({ userData }) => userData,
+}
 
 const state = () => ({
-  userData: localStorage.getItem("userData") || {},
-  token: localStorage.getItem("token") || ''
+  userData: null
 })
 
 export default {

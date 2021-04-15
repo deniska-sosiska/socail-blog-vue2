@@ -1,7 +1,6 @@
 <template>
   <v-col>
     <v-sheet
-      rounded="lg"
       max-width="600px"
       max-height="90vh"
       class="forms"
@@ -52,7 +51,7 @@
 
     data: () => ({
       buttonActive: true
-    })
+    }),
 
   }
 </script>

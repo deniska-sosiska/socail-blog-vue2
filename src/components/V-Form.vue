@@ -30,6 +30,11 @@
       placeholder="Your password"
       required
     ></v-text-field>
+    
+    <p
+      class="errMess"
+      :class="errorMessageFlag ? 'active': '' "
+    >{{ errorMessage }}</p>
 
     <div class="buttons">
       <v-btn
@@ -49,7 +54,8 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  // import { mapActions } from 'vuex'
+  import { authCurrentUser, registrationUser } from '@/services/auth.service.js'
 
   export default {
     name: "VueForm",
@@ -65,6 +71,9 @@
       login: '',
       password: 'deniska3',
       email: 'denchikarabik@gmail.com',
+      errorMessage: '',
+      errorMessageFlag: false,
+      defaultErr: "All fields must be filled",
 
       countLetters: 25,
       valid: true,
@@ -81,27 +90,47 @@
 
     methods: {
       registrationORauthorization() {
-        if (this.nameForm == "Sign In") this.authorization()
-        else if (this.nameForm == "Sign Up") this.registration()
-        else console.error('Error in "registrationORauthorization": ' + 'unknown props: ' + this.nameForm)
+        if (this.nameForm == "Sign In") {
+          (!this.email || !this.password) ?  
+            this.showError(this.defaultErr)
+            : this.authorization()
+        }
+        else if (this.nameForm == "Sign Up") {
+          (!this.login || !this.email || !this.password) ?
+            this.showError(this.defaultErr)
+            : this.registration()
+        }
+        else console.error('Error in "registrationORauthorization" || ' + 'Unknown props: ' + this.nameForm)
       },
 
-      authorization() {
-        this.createCurrentUser({
+      async authorization() {
+        const res = await authCurrentUser({
           email: this.email,
           password: this.password
         })
+
+        if (res.errorMessage) this.showError(res.errorMessage)
+
+        else if (res.token) {
+          localStorage.setItem("token", res.token)
+          this.$store.dispatch("checkAuthUser", res.token)
+          this.$router.push({ name: "Posts" })
+        }
       },
 
-      registration() {
-        this.createNewUser({
-          name: this.login,
-          email: this.email,
-          password: this.password
-        })
+      async registration() {
+        registrationUser()
       },
-
-      ...mapActions(['createCurrentUser', 'createNewUser'])
+      
+      showError(err) {
+        this.errorMessage = err
+        this.errorMessageFlag = true
+        
+        setTimeout(() => {
+          this.errorMessageFlag = false
+        }, 3200);
+      }
+      // ...mapActions(['createCurrentUser', 'createNewUser'])
     }
   }
 </script>
@@ -121,6 +150,16 @@
     justify-content: flex-end;
   }
   button {
-    margin: 25px 0px 0px 25px;
+    margin-left: 25px;
+  }
+
+  .errMess {
+    height: 25px;
+    visibility: hidden;
+    color: red;
+    text-align: center;
+  }
+  .errMess.active {
+    visibility: visible;
   }
 </style>

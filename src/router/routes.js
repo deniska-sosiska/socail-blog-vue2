@@ -1,28 +1,26 @@
-import PagePosts from "@/views/V-Posts";
-import PageUsers from "@/views/V-Users";
-import PageProfile from "@/views/V-Profile"
-import PageAuthorization from "@/views/V-Authorization"
-
 const routes = [
   {
     path: "/",
     name: "Posts",
-    component: PagePosts,
+    component: () => import("@/views/V-Posts"),
+    
   },
   {
     path: "/users",
     name: "Users",
-    component: PageUsers,
+    component: () => import("@/views/V-Users"),
+    meta: {  requiresAuth: true  }
   },
   {
     path: "/profile",
     name: "Profile",
-    component: PageProfile,
+    component: () => import("@/views/V-Profile"),
+    meta: {  requiresAuth: true  }
   },
   {
     path: "/auth",
     name: "PageAuthorization",
-    component: PageAuthorization,
+    component: () => import("@/views/V-Authorization"),
   }
 ];
 

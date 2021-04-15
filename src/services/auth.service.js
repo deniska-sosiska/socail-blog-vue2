@@ -1,8 +1,23 @@
-import { request } from './axiosRequest'
+import { apiRequest } from './axiosRequest'
+
+const getUserDataByToken = async (token) => {
+  try {
+    const res = await apiRequest({
+      url: "/auth/user",
+      method: "get",
+      token
+    })
+
+    return res
+  }
+  catch(err) {
+    console.log("tokenerr: ", err)
+  }
+}
 
 const authCurrentUser = async ({email, password}) => {
   try {
-    const res = await request({
+    const res = await apiRequest({
       url: "/auth",
       body: {
         email,
@@ -10,16 +25,19 @@ const authCurrentUser = async ({email, password}) => {
       },
       method: "post"
     })
+
+    // if (!res) throw { errorMessage: "response - undefined" }
+
     return res
   }
   catch (err) {
-    console.error("axiosError: 'auth.service.js - authUser()' \n", err)
+    return err
   }
 }
 
 const registrationUser = async ({name, email, password}) => {
   try {
-    const res = await request({
+    const res = await apiRequest({
       url: "/users",
       body: {
         email,
@@ -38,5 +56,6 @@ const registrationUser = async ({name, email, password}) => {
 
 export {
   authCurrentUser,
-  registrationUser
+  registrationUser,
+  getUserDataByToken
 }
