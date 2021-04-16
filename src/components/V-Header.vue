@@ -21,20 +21,32 @@
         ></v-text-field>
       </v-responsive>
 
-      <v-btn 
-        v-if="!userData"
-        class="buttons"
-        @click="routerPush()"
-      >
-        Sign In/Sign Up
-      </v-btn>
+      <template v-if="!loading">
+        <v-btn 
+          v-if="!userData"
+          class="buttons"
+          @click="routerPush()"
+        >
+          Sign In/Sign Up
+        </v-btn>
 
-      <div
-        v-else
-        class="buttons"
-      >
-        <VueDropDownMenu />
-      </div>
+        <div
+          v-else
+          class="buttons"
+        >
+          <VueDropDownMenu />
+        </div>
+      </template>
+
+        <v-btn 
+          v-else
+          class="buttons"
+        >
+          <VuePreLoader
+            :size="35"
+            forHeader="little"
+          />
+        </v-btn>
 
     </v-container>
   </v-app-bar>
@@ -51,12 +63,12 @@
       VueDropDownMenu
     },
 
-    computed: mapGetters(['userData']),
+    computed: mapGetters(['userData', 'loading']),
 
     methods: {
       routerPush() {
-        if (this.$router.currentRoute.path != '/auth') 
-          this.$router.push({ name: 'PageAuthorization' })
+        if (this.$router.currentRoute.fullPath != "/authorization") 
+          this.$router.push({ name: 'Authorization', params: { flag: false } })
       }
     }
   }

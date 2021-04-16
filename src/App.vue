@@ -9,7 +9,7 @@
           <VueFirstColumn />
 
           <router-view v-if="!loading"></router-view>
-          <VuePreLoader v-else :color="'#64B5F6'" />
+          <VuePreLoader v-else />
 
         </v-row>
       </v-container>
@@ -20,14 +20,12 @@
 <script>
   import VueHeader from "./components/V-Header"
   import VueFirstColumn from "./components/V-First-Column"
-  import VuePreLoader from "./components/V-PreLoader"
 
   export default {
     name: "App",
     components: {
       VueHeader,
-      VueFirstColumn,
-      VuePreLoader
+      VueFirstColumn
     },
 
     data: () => ({
@@ -46,8 +44,6 @@
 
       else {
         this.$store.commit("isLoaded")
-        // if (this.$router.currentRoute.path != '/') 
-        //   this.$router.push({ name: "Posts" })
       }
     }
   };

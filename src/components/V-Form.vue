@@ -100,27 +100,49 @@
             this.showError(this.defaultErr)
             : this.registration()
         }
-        else console.error('Error in "registrationORauthorization" || ' + 'Unknown props: ' + this.nameForm)
       },
 
       async authorization() {
-        const res = await authCurrentUser({
-          email: this.email,
-          password: this.password
-        })
+        try {
+          const res = await authCurrentUser({
+            email: this.email,
+            password: this.password
+          })
 
-        if (res.errorMessage) this.showError(res.errorMessage)
 
-        else if (res.token) {
-          localStorage.setItem("token", res.token)
-          this.$store.dispatch("checkAuthUser", res.token)
+          await this.$store.dispatch("checkAuthUser", res.token)
           this.$router.push({ name: "Posts" })
+
+          this.resetForm()
         }
-        this.resetForm()
+        catch(e) {
+          this.showError(e.errorMessage)
+          console.log("Error: ", e.errorMessage, "| status: ", e.status)
+        }
       },
 
       async registration() {
-        registrationUser()
+        try {
+          await registrationUser({
+            name: this.login,
+            email: this.email,
+            password: this.password
+          })
+
+          const resAuth = await authCurrentUser({
+            email: this.email,
+            password: this.password
+          })
+
+          this.$store.dispatch("checkAuthUser", resAuth.token)
+          this.$router.push({ name: "Posts" })
+
+          this.resetForm()
+        }
+        catch(e) {
+          this.showError(e.errorMessage)
+          console.log("Error: ", e.errorMessage, "| status: ", e.status)
+        }
       },
       
       showError(err) {

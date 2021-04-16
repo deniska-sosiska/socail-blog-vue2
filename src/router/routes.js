@@ -18,8 +18,9 @@ const routes = [
     meta: {  requiresAuth: true  }
   },
   {
-    path: "/auth",
-    name: "PageAuthorization",
+    path: "/authorization",
+    name: "Authorization",
+    props: true,
     component: () => import("@/views/V-Authorization"),
   }
 ];

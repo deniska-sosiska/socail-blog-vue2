@@ -21,6 +21,7 @@ export const apiRequest = async ({ url, body = {}, method, token = '' }) => {
         method, 
         body
       })
+      localStorage.setItem("token", "qweqweqweqwe11322121331232qw")
       return res.data
     }
     else {
@@ -29,8 +30,11 @@ export const apiRequest = async ({ url, body = {}, method, token = '' }) => {
     }
   }
   catch(err) {
+    localStorage.setItem("token", "qweqweqweqwe11322121331232qw")
+
     const errObj = err.response.data
-    
+    console.log(errObj)
+
     if (errObj.error[0].message) 
       throw {
         errorMessage: errObj.error[0].message

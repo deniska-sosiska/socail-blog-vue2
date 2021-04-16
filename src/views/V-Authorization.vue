@@ -1,5 +1,12 @@
 <template>
   <v-col>
+
+    <div class="message">
+      <v-sheet  v-if="flag">
+        <p>You must be logged in to access the {{ fromPage }} page.</p>
+      </v-sheet>
+    </div>
+
     <v-sheet
       max-width="600px"
       max-height="90vh"
@@ -44,6 +51,18 @@
   import VueForm from '@/components/V-Form.vue'
 
   export default {
+    name: "VueAuthorization",
+
+    props: {
+      fromPage: { 
+        type: String,
+        default: "this"
+      },
+      flag: {
+        type: Boolean,
+        default: false
+      }
+    },
     
     components: {
       VueForm
@@ -53,6 +72,7 @@
       buttonActive: true
     }),
 
+
   }
 </script>
 
@@ -60,7 +80,7 @@
   .forms {
     padding: 0 0 15px 0;
     margin: 0 auto;
-    margin-top: 100px;
+    /* margin-top: 10px; */
     border-radius: 4px !important;
   }
   .buttons {
@@ -79,5 +99,14 @@
   }
   .button.active {
     background-color: #64B5F6;
+  }
+  .message {
+    min-height: 110px;
+    margin-bottom: 20px;
+  }
+  .message > .v-sheet {
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
   }
 </style>

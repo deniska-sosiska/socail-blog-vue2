@@ -12,19 +12,24 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  // console.log("from: ", from)
+  // console.log("to: ", to)
+  const savedUserData = localStorage.getItem("userData")
   if(to.matched.some(record => record.meta.requiresAuth)) {
-    console.log(localStorage.getItem("userData"))
-    // if (store.getters.userData === null) {
-    let saved_user_data = JSON.parse(localStorage.getItem("userData"))
-    if (!saved_user_data) {
+    if (!savedUserData) {
       next({
-        path: '/auth',
+        name: "Authorization",
+        params: { fromPage: to.name, flag: true },
         query: {  redirect: to.fullPath  }
       })
     }
     else {  next()  }
   }
-  else {  next()  }
+  else {  
+    (to.name === "Authorization" && savedUserData)
+    ? next({  name: "Posts"  })
+    : next()
+  }
 })
 
 export default router;

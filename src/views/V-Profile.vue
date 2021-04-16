@@ -15,6 +15,10 @@
       userData() {
         return this.$store.getters.userData
       }
+    },
+
+    mounted() {
+      
     }
   }
 </script>

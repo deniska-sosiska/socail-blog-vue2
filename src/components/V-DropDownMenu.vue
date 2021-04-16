@@ -3,9 +3,10 @@
       bottom
       origin="center center"
       transition="scale-transition"
-      :open-on-hover="true"
       :offset-y="true"
     >
+      <!-- :open-on-hover="true" -->
+
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           v-bind="attrs"
@@ -49,7 +50,8 @@
           this.$router.push({ name: "Posts" })
       },
       routerPush() {
-        this.$router.push({ name: "Profile" })
+        if (this.$router.currentRoute.path != '/profile') 
+          this.$router.push({ name: "Profile" })
       }
     }
   }

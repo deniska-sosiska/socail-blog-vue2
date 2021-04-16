@@ -1,51 +1,75 @@
-import { apiRequest } from './axiosRequest'
+// import { apiRequest } from './axiosRequest'
+import axios from 'axios'
+const defaultUrl = process.env.VUE_APP_API_URL
 
 const getUserDataByToken = async (token) => {
   try {
-    return await apiRequest({
-      url: "/auth/user",
+    const res = await axios({
+      url: `${defaultUrl}/auth/user`,
       method: "get",
-      token
+      headers: { 
+        'Authorization': `Bearer ${token}`
+      },
     })
+
+    return res.data
   }
   catch(err) {
-    console.log("tokenerr: ", err)
+    throw throwErrors(err)
   }
 }
 
 const authCurrentUser = async ({email, password}) => {
   try {
-    return await apiRequest({
-      url: "/auth",
-      body: {
+    const res = await axios({
+      url: `${defaultUrl}/auth`,
+      data: { 
         email,
         password
       },
-      method: "post"
+      method: "POST"
     })
+
+    return res.data
   }
   catch (err) {
-    return err
+    throw throwErrors(err)
   }
 }
 
 const registrationUser = async ({name, email, password}) => {
   try {
-    const res = await apiRequest({
-      url: "/users",
-      body: {
+    const res = await axios({
+      url: `${defaultUrl}/users`,
+      data: {
         email,
         password,
         name
       },
       method: "post"
     })
-    return res
+    
+    return res.data
   }
   catch (err) {
-    console.error("axiosError: 'auth.service.js - registrationUser()' \n", err)
+    throw throwErrors(err)
   }
 } 
+
+const throwErrors = (err) => {
+  const errObj = err.response
+
+  if (errObj.data.error[0].message) 
+    return {
+      errorMessage: errObj.data.error[0].message,
+      status: errObj.status
+    }
+  else
+    return {
+      errorMessage: errObj.data.error,
+      status: errObj.status
+    }
+}
 
 
 export {

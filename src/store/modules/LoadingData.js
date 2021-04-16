@@ -1,6 +1,9 @@
 const mutations = {
   isLoaded(state) {
     state.loading = false
+  },
+  isLoadingRightNow(state) {
+    state.loading = true
   }
 }
 

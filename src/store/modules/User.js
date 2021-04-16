@@ -3,21 +3,36 @@ import { getUserDataByToken } from '@/services/auth.service.js'
 
 const mutations = {
   setCurrentUserData(state, payload) {
-    state.userData = payload
-    localStorage.setItem("userData", JSON.stringify(payload))
+    state.userData = payload.userData
+
+    localStorage.setItem("token", payload.token)
+    localStorage.setItem("userData", JSON.stringify(payload.userData))
   },
   clearCurrentUserData(state) {
     state.userData = null
     localStorage.removeItem("token")
+    localStorage.removeItem("userData")
   }
 }
 
 const actions = {
   async checkAuthUser({ commit }, payload) {
-    const res = await getUserDataByToken(payload)
+    try {
+      commit("isLoadingRightNow")
+      const res = await getUserDataByToken(payload)
 
-    commit("setCurrentUserData", res)
-    commit("isLoaded")
+      const data = {
+        userData: res,
+        token: payload
+      }
+
+      commit("setCurrentUserData", data)
+      commit("isLoaded")
+    }
+    catch(e) {
+      commit("clearCurrentUserData")
+      commit("isLoaded")
+    }
   }
 }
 
