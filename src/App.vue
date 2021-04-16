@@ -39,11 +39,14 @@
     },
 
     beforeCreate() {
+      localStorage.removeItem("userData")
       const token = localStorage.token ? localStorage.token : ''
+
       if (token) this.$store.dispatch("checkAuthUser", token)
 
       else {
         this.$store.commit("isLoaded")
+        this.$router.push({ name: "Posts" })
       }
     }
   };

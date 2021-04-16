@@ -1,6 +1,7 @@
 import { getUserDataByToken } from '@/services/auth.service.js'
 // import { authCurrentUser, registrationUser, getUserDataByToken } from '@/services/auth.service.js'
 
+
 const mutations = {
   setCurrentUserData(state, payload) {
     state.userData = payload.userData
@@ -12,6 +13,7 @@ const mutations = {
     state.userData = null
     localStorage.removeItem("token")
     localStorage.removeItem("userData")
+
   }
 }
 
@@ -30,6 +32,7 @@ const actions = {
       commit("isLoaded")
     }
     catch(e) {
+      console.log(e)
       commit("clearCurrentUserData")
       commit("isLoaded")
     }

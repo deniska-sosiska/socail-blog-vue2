@@ -1,11 +1,11 @@
-// import { apiRequest } from './axiosRequest'
 import axios from 'axios'
 const defaultUrl = process.env.VUE_APP_API_URL
+const prefiks = process.env.VUE_APP_PREFIKS
 
 const getUserDataByToken = async (token) => {
   try {
     const res = await axios({
-      url: `${defaultUrl}/auth/user`,
+      url: `${defaultUrl}${prefiks}/auth/user`,
       method: "get",
       headers: { 
         'Authorization': `Bearer ${token}`
@@ -22,7 +22,7 @@ const getUserDataByToken = async (token) => {
 const authCurrentUser = async ({email, password}) => {
   try {
     const res = await axios({
-      url: `${defaultUrl}/auth`,
+      url: `${defaultUrl}${prefiks}/auth`,
       data: { 
         email,
         password
@@ -40,7 +40,7 @@ const authCurrentUser = async ({email, password}) => {
 const registrationUser = async ({name, email, password}) => {
   try {
     const res = await axios({
-      url: `${defaultUrl}/users`,
+      url: `${defaultUrl}${prefiks}/users`,
       data: {
         email,
         password,
