@@ -6,7 +6,7 @@
       <v-container>
         <v-row>
 
-          <VueFirstColumn />
+          <VueFirstColumn  />
 
           <router-view v-if="!loading"></router-view>
           <VuePreLoader v-else />
@@ -19,7 +19,7 @@
 
 <script>
   import VueHeader from "./components/V-Header"
-  import VueFirstColumn from "./components/V-First-Column"
+  import VueFirstColumn from "./components/V-FirstColumn"
 
   export default {
     name: "App",

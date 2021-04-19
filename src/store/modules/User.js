@@ -1,4 +1,6 @@
 import { getUserDataByToken } from '@/services/auth.service.js'
+import { changeAvatar } from '@/services/profile.service.js'
+
 // import { authCurrentUser, registrationUser, getUserDataByToken } from '@/services/auth.service.js'
 
 
@@ -17,7 +19,10 @@ const mutations = {
   }
 }
 
+
+
 const actions = {
+
   async checkAuthUser({ commit }, payload) {
     try {
       commit("isLoadingRightNow")
@@ -35,6 +40,20 @@ const actions = {
       console.log(e)
       commit("clearCurrentUserData")
       commit("isLoaded")
+    }
+  },
+
+  async changeAvatarAndUpdateUser({ commit }, payload) {
+    try {
+      const res = await changeAvatar({ userID: payload.userID, bodyFormData: payload.bodyFormData })
+      const data = {
+        userData: res,
+        token: localStorage.token
+      }
+      commit("setCurrentUserData", data)
+    }
+    catch(e) {
+      console.log(e)
     }
   }
 }
