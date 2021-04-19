@@ -1,6 +1,6 @@
 import { getUserDataByToken } from '@/services/auth.service.js'
 import { changeAvatar } from '@/services/profile.service.js'
-// import { getAllUsers } from '@/services/user.service.js'
+import { getAllUsers } from '@/services/user.service.js'
 
 
 const mutations = {
@@ -14,6 +14,9 @@ const mutations = {
     state.userData = {}
     localStorage.removeItem("token")
     localStorage.removeItem("userData")
+  },
+  setUserList(state, payload) {
+    state.userList = payload
   }
 }
 
@@ -32,7 +35,7 @@ const actions = {
       commit("setCurrentUserData", data)
 
     } catch(err) {
-      console.log('error from changeAvatarAndUpdateUser', err)
+      console.log('error from checkAuthUser: ', err)
       commit("clearCurrentUserData")
     } finally {
       commit("isLoaded")
@@ -50,11 +53,25 @@ const actions = {
       }
 
       commit("setCurrentUserData", data)
-    } catch(e) {
-      console.log('error from changeAvatarAndUpdateUser', e)
+    } catch(err) {
+      console.log('error from changeAvatarAndUpdateUser: ', err)
     } finally {
       commit("isLoaded")
     }
+  },
+   
+  async fetchUserList({ commit }) {
+    try {
+      // commit("isLoaded")
+      const res = await getAllUsers()
+      commit("setUserList", res)
+    } catch (err){
+      console.log("error from fetchUserList: ", err)
+    } finally {
+
+      // commit("isLoaded")
+    }
+
   }
 }
 

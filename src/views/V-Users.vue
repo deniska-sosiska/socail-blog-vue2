@@ -1,28 +1,31 @@
 <template>
   <v-col>
-    <v-card v-for="(user, index) in userList" :key="index"
+    <v-card
+      v-for="(user, index) in userList"
+      :key="index"
       max-width="90vw"
       class="mx-auto card"
     >
       <v-list-item>
         <VueAvatar :userAvatar="user.avatar" />
         <v-list-item-content>
-          <v-list-item-title class="headline"> {{ user.name }} </v-list-item-title>
-          <v-list-item-subtitle> {{ getTimeCreated(user.dateCreated) }} </v-list-item-subtitle>
+          <v-list-item-title class="headline">
+            {{ user.name }}
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            {{ getTimeCreated(user.dateCreated) }}
+          </v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-content>
-          <v-list-item-title class="headline"> {{ user.email }} </v-list-item-title>
+          <v-list-item-title class="headline">
+            {{ user.email }}
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <v-card-actions>
-        <v-btn
-          text
-          color="blue lighten-1"
-        >Show more
-        </v-btn>
-       
+        <v-btn text color="blue lighten-1"> Show more </v-btn>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -42,7 +45,7 @@
 
     computed: {
       userList() {
-        return [this.$store.getters.userData, this.$store.getters.userData]
+        return this.$store.getters.userList
       }
     },
 
@@ -51,9 +54,7 @@
     },
 
     mounted() {
-      // console.log("mounted")
-
-      // this.$store.dispatch("fetchUserList")
+      this.$store.dispatch("fetchUserList")
     }
   }
 </script>
