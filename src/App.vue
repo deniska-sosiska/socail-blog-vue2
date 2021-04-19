@@ -28,10 +28,6 @@
       VueFirstColumn
     },
 
-    data: () => ({
-      //
-    }),
-
     computed: {
       loading() {
         return this.$store.getters.loading
@@ -42,11 +38,11 @@
       localStorage.removeItem("userData")
       const token = localStorage.token ? localStorage.token : ''
 
-      if (token) this.$store.dispatch("checkAuthUser", token)
-
-      else {
-        this.$store.commit("isLoaded")
-        this.$router.push({ name: "Posts" })
+      if (token) {
+        this.$store.dispatch("checkAuthUser", token)
+      } else {
+        if (this.$router.currentRoute.name != "Posts") 
+          this.$router.push({ name: "Posts" })
       }
     }
   };

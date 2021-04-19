@@ -117,7 +117,6 @@
         }
         catch(e) {
           this.showError(e.errorMessage)
-          console.log("Error: ", e.errorMessage, "| status: ", e.status)
         }
       },
 
@@ -141,7 +140,6 @@
         }
         catch(e) {
           this.showError(e.errorMessage)
-          console.log("Error: ", e.errorMessage, "| status: ", e.status)
         }
       },
       

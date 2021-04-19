@@ -9,13 +9,12 @@
       @click="deleteUserAvatar()"
     > Delete avatar </v-btn>
 
-    <input type="file" style="display: none" ref="avatarBtn" accept="image/*" @change="change()">
+    <input type="file" style="display: none" ref="avatarBtn" accept="image/*" @change="changeUserAvatar()">
 
   </div>
 </template>
 
 <script>
-  // import { changeAvatar } from "@/services/profile.service.js"
 
   export default {
     name: "ProfileInfouserButtons",
@@ -31,14 +30,21 @@
     methods: {
       triggerInputClick() {
         this.$refs.avatarBtn.click()
-        
       },
 
-      change() {
+      changeUserAvatar() {
         const bodyFormData = new FormData()
         const file = this.$refs.avatarBtn
 
         bodyFormData.append('avatar', file.files[0])
+        this.$store.dispatch("changeAvatarAndUpdateUser", { userID: this.userID, bodyFormData })
+      },
+
+      deleteUserAvatar() {
+        const bodyFormData = new FormData()
+        const file = this.fallBackSrc
+
+        bodyFormData.append('avatar', file)
         this.$store.dispatch("changeAvatarAndUpdateUser", { userID: this.userID, bodyFormData })
       }
     }

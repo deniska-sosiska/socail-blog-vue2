@@ -16,7 +16,7 @@ const changeAvatar = async ({ userID, bodyFormData }) => {
     return res.data
   }
   catch (err) {
-    throwErrors(err)
+    throw throwErrors(err)
   }
 }
 

@@ -5,11 +5,7 @@
     flat
   >
     <v-container class="py-0 justify-sm-space-between fill-height">
-      <v-avatar
-        class="mr-10"
-        color="grey darken-1"
-        size="32"
-      ></v-avatar>
+      <VueAvatar :userAvatar="userData.avatar" />
 
       <v-responsive max-width="360">
         <v-text-field
@@ -23,7 +19,7 @@
 
       <template v-if="!loading">
         <v-btn 
-          v-if="!userData"
+          v-if="!userData.email"
           class="buttons"
           @click="routerPush()"
         >
@@ -38,15 +34,15 @@
         </div>
       </template>
 
-        <v-btn 
-          v-else
-          class="buttons"
-        >
-          <VuePreLoader
-            :size="35"
-            forHeader="little"
-          />
-        </v-btn>
+      <v-btn 
+        v-else
+        class="buttons"
+      >
+        <VuePreLoader
+          :size="35"
+          forHeader="little"
+        />
+      </v-btn>
 
     </v-container>
   </v-app-bar>
@@ -55,15 +51,17 @@
 <script>
   import { mapGetters } from 'vuex'
   import VueDropDownMenu from "./V-DropDownMenu"
+  import VueAvatar from "./V-Avatar"
 
   export default {
     name: "VueHeader",
 
     components: {
-      VueDropDownMenu
+      VueDropDownMenu,
+      VueAvatar
     },
 
-    computed: mapGetters(['userData', 'loading']),
+    computed:  mapGetters(['userData', 'loading']),
 
     methods: {
       routerPush() {

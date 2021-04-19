@@ -1,9 +1,6 @@
 const mutations = {
   isLoaded(state) {
-    state.loading = false
-  },
-  isLoadingRightNow(state) {
-    state.loading = true
+    state.loading = !state.loading
   }
 }
 
@@ -14,7 +11,7 @@ const getters = {
 }
 
 const state = () => ({
-  loading: true
+  loading: false
 })
 
 export default {

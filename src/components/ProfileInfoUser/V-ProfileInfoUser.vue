@@ -40,6 +40,7 @@
     computed: {
       userData() {
         const data = this.$store.getters.userData 
+        
         //решает ошибку в консоле при перезагрузке сайта, больше ничего полезного
         return (data === null) ? { dateCreated: new Date() } : data
       },

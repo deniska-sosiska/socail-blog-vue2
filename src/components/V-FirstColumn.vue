@@ -14,7 +14,7 @@
             >
               <v-list-item-content>
                 <v-list-item-title>
-                    {{ item.text }}
+                  {{ item.text }}
                 </v-list-item-title>
               </v-list-item-content>
             </router-link>
@@ -48,20 +48,18 @@
 <script>
 
   export default {
-    data() {
-      return {
-        li: [
-          {
-            text: 'HomePage',
-            link: '/',
-          },
-          {
-            text: 'Users',
-            link: '/users',
-          }
-        ]
-      }
-    }    
+    data: () => ({
+      li: [
+        {
+          text: 'HomePage',
+          link: '/',
+        },
+        {
+          text: 'Users',
+          link: '/users',
+        }
+      ]
+    }),
   }
 </script>
 
@@ -72,7 +70,12 @@
     outline: none;
   }
   .links:hover {
-    background: #BBDEFB;
+    background: #64B5F6;
+    color: white
+  }
+  .links.active {
+    background: #64B5F6;
+    color: white
   }
 
 </style>
