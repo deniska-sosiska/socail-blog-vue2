@@ -34,6 +34,9 @@
 
 <script>
   import VueAvatar from "@/components/V-Avatar"
+  import axiosApiInstance from "@/services/axiosApiInstance"
+  import { mapMutations ,mapGetters } from "vuex"
+
   import { parseTime } from "@/services/time.service"
 
   export default {
@@ -44,17 +47,26 @@
     },
 
     computed: {
-      userList() {
-        return this.$store.getters.userList
-      }
+      ...mapGetters(['userList'])
     },
 
     methods: {
+      ...mapMutations(['setUserList']),
       getTimeCreated: (timestamp) => parseTime(new Date(timestamp)),
     },
 
-    created() {
-      this.$store.dispatch("fetchUserList")
+    async created() {
+      try {
+        const res = await axiosApiInstance({
+          url: `/users`,
+          method: "get"
+        })
+        this.setUserList(res)
+      } catch (err){
+        console.error("Error in: Views/V-Users.vue/created(): ", err)
+      } finally {
+        // commit("isLoaded")
+      }
     }
   }
 </script>

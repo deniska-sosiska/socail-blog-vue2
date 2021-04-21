@@ -39,7 +39,7 @@
       const token = localStorage.token ? localStorage.token : ''
 
       if (token) {
-        this.checkAuthUser(token)
+        this.getAccountDataByToken(token)
       } else {
         if (this.$router.currentRoute.name != "Posts") 
           this.$router.push({ name: "Posts" })
@@ -47,7 +47,7 @@
     },
 
     methods: {
-      ...mapActions(['checkAuthUser'])
+      ...mapActions(['getAccountDataByToken'])
     }
   };
 </script>

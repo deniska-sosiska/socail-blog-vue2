@@ -50,10 +50,11 @@
 </template>
 
 <script>
-  import { mapMutations } from "vuex"
+  import axiosApiInstance from "@/services/axiosApiInstance"
 
+  import { mapMutations } from "vuex"
   import { parseTime } from "@/services/time.service"
-  import { changeNameAccount, deleteAccount } from "@/services/profile.service"
+
 
 
   export default {
@@ -84,16 +85,23 @@
     methods: {
       ...mapMutations(['setCurrentAccountData', 'clearCurrentAccountData']),
       async actions() {
-        if (this.nameInput == this.arrayNameInput[0]) {
+        if (this.nameInput == this.arrayNameInput[0]) { //if change name
           if (this.userAnswer) {
-            const res = await changeNameAccount({ id: this.user._id, name: this.userAnswer })
+            const res = await axiosApiInstance({
+              url: `/users/${this.user._id}`,
+              data: { name: this.userAnswer },
+              method: "patch"
+            })
             this.setCurrentAccountData(res)
             this.visibility = false
           }
 
-        } else {
+        } else { //if delete account
           if (this.userAnswer == this.arrayPlaceholder[1]) {
-            await deleteAccount({ id: this.user._id })
+            await axiosApiInstance({
+              url: `/users/${this.user._id}`,
+              method: "delete"
+            })
 
             this.$router.push({ name: "Posts" })
             this.clearCurrentAccountData()
@@ -123,7 +131,6 @@
         catch(err) { return parseTime(new Date()) }
       },
     }
-    // delete my account
   }
 </script>
 

@@ -1,7 +1,4 @@
-import { getAccountDataByToken } from '@/services/auth.service.js'
-import { changeAvatar } from '@/services/profile.service.js'
-import { getAllUsers } from '@/services/user.service.js'
-
+import axiosApiInstance from "@/services/axiosApiInstance"
 
 const mutations = {
   setCurrentAccountData(state, payload) {
@@ -20,15 +17,18 @@ const mutations = {
 
 
 const actions = {
-  async checkAuthUser({ commit }, payload) {
+  async getAccountDataByToken({ commit }, payload) {
     commit("isLoaded")
     localStorage.setItem("token", payload)
 
     try {
-      const res = await getAccountDataByToken()
+      const res = await axiosApiInstance({
+        url: `/auth/user`,
+        method: "get",
+      })
       commit("setCurrentAccountData", res)
     } catch(err) {
-      console.error('Error in: Store/Auth.service.js/checkAuthUser(): ', err)
+      console.error('Error in: Store/User.js/getAccountDataByToken(): ', err)
       commit("clearCurrentAccountData")
     } finally {
       commit("isLoaded")
@@ -39,24 +39,17 @@ const actions = {
     commit("isLoaded")
 
     try {
-      const res = await changeAvatar({ userID: payload.userID, bodyFormData: payload.bodyFormData })
+      const res = await axiosApiInstance({
+        url: `/users/upload/${payload.userID}`,
+        data: payload.bodyFormData,
+        method: "put"
+      })
       commit("setCurrentAccountData", res)
       
     } catch(err) {
-      console.error('Error in: Store/Auth.service.js/changeAvatarAndUpdateUser(): ', err)
+      console.error('Error in: Store/User.js/changeAvatarAndUpdateUser(): ', err)
     } finally {
       commit("isLoaded")
-    }
-  },
-   
-  async fetchUserList({ commit }) {
-    try {
-      const res = await getAllUsers()
-      commit("setUserList", res)
-    } catch (err){
-      console.error("Error in: Store/Auth.service.js/fetchUserList(): ", err)
-    } finally {
-      // commit("isLoaded")
     }
   }
 }

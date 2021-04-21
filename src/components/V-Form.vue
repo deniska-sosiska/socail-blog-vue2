@@ -54,8 +54,8 @@
 </template>
 
 <script>
-  // import { mapActions } from 'vuex'
-  import { authCurrentUser, registrationUser } from '@/services/auth.service.js'
+  import { mapActions } from 'vuex'
+  import axiosApiInstance from "@/services/axiosApiInstance"
 
   export default {
     name: "VueForm",
@@ -104,13 +104,16 @@
 
       async authorization() {
         try {
-          const res = await authCurrentUser({
-            email: this.email,
-            password: this.password
+          const res = await axiosApiInstance({
+            url: `/auth`,
+            data: { 
+              email: this.email,
+              password: this.password
+            },
+            method: "POST"
           })
 
-
-          await this.$store.dispatch("checkAuthUser", res.token)
+          await this.getAccountDataByToken(res.token)
           this.$router.push({ name: "Posts" })
 
           this.resetForm()
@@ -123,18 +126,26 @@
 
       async registration() {
         try {
-          await registrationUser({
-            name: this.login,
-            email: this.email,
-            password: this.password
+          await axiosApiInstance({
+            url: `/users`,
+            data: {
+              name: this.login,
+              email: this.email,
+              password: this.password
+            },
+            method: "post"
           })
 
-          const resAuth = await authCurrentUser({
-            email: this.email,
-            password: this.password
+          const resAuth = await axiosApiInstance({
+            url: `/auth`,
+            data: { 
+              email: this.email,
+              password: this.password
+            },
+            method: "POST"
           })
 
-          this.$store.dispatch("checkAuthUser", resAuth.token)
+          this.getAccountDataByToken(resAuth.token)
           this.$router.push({ name: "Posts" })
 
           this.resetForm()
@@ -156,8 +167,8 @@
 
       resetForm() {
         this.login = this.password = this.email = ''
-      }
-      // ...mapActions(['createCurrentUser', 'createNewUser'])
+      },
+      ...mapActions(['getAccountDataByToken'])
     }
   }
 </script>
