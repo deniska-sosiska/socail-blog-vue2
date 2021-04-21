@@ -1,59 +1,39 @@
-import axios from 'axios'
-import { throwErrors, defaultUrl, prefiks } from "./config.service"
+import axiosApiInstance from "./axiosApiInstance"
 
+const getAccountDataByToken = async () => {
+  const res = await axiosApiInstance({ token: true })({
+    url: `/auth/user`,
+    method: "get",
+  })
 
-const getAccountDataByToken = async (token) => {
-  try {
-    const res = await axios({
-      url: `${defaultUrl}${prefiks}/auth/user`,
-      method: "get",
-      headers: { 
-        'Authorization': `Bearer ${token}`
-      },
-    })
-
-    return res.data
-  }
-  catch(err) {
-    throw throwErrors(err)
-  }
+  return res.data
 }
 
 const authCurrentUser = async ({email, password}) => {
-  try {
-    const res = await axios({
-      url: `${defaultUrl}${prefiks}/auth`,
-      data: { 
-        email,
-        password
-      },
-      method: "POST"
-    })
+  const res = await axiosApiInstance()({
+    url: `/auth`,
+    data: { 
+      email,
+      password
+    },
+    method: "POST"
+  })
 
-    return res.data
-  }
-  catch (err) {
-    throw throwErrors(err)
-  }
+  return res.data
 }
 
 const registrationUser = async ({name, email, password}) => {
-  try {
-    const res = await axios({
-      url: `${defaultUrl}${prefiks}/users`,
-      data: {
-        email,
-        password,
-        name
-      },
-      method: "post"
-    })
-    
-    return res.data
-  }
-  catch (err) {
-    throw throwErrors(err)
-  }
+  const res = await axiosApiInstance()({
+    url: `/users`,
+    data: {
+      email,
+      password,
+      name
+    },
+    method: "post"
+  })
+  
+  return res.data
 } 
 
 

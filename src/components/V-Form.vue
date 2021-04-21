@@ -115,8 +115,9 @@
 
           this.resetForm()
         }
-        catch(e) {
-          this.showError(e.errorMessage)
+        catch(err) {
+          console.error('Error in: components/V-Form/authorization(): ', err)
+          this.showError(err.errorMessage)
         }
       },
 
@@ -138,8 +139,9 @@
 
           this.resetForm()
         }
-        catch(e) {
-          this.showError(e.errorMessage)
+        catch(err) {
+          console.error('Error in: components/V-Form/registration(): ', err)
+          this.showError(err.errorMessage)
         }
       },
       

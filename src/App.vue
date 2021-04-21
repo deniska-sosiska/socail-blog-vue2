@@ -21,6 +21,8 @@
   import VueHeader from "./components/V-Header"
   import VueFirstColumn from "./components/V-FirstColumn"
 
+  import { mapGetters, mapActions } from "vuex"
+
   export default {
     name: "App",
     components: {
@@ -29,21 +31,23 @@
     },
 
     computed: {
-      loading() {
-        return this.$store.getters.loading
-      }
+      ...mapGetters(['loading'])
     },
 
-    beforeCreate() {
+    created() {
       localStorage.removeItem("accountData")
       const token = localStorage.token ? localStorage.token : ''
 
       if (token) {
-        this.$store.dispatch("checkAuthUser", token)
+        this.checkAuthUser(token)
       } else {
         if (this.$router.currentRoute.name != "Posts") 
           this.$router.push({ name: "Posts" })
       }
+    },
+
+    methods: {
+      ...mapActions(['checkAuthUser'])
     }
   };
 </script>

@@ -21,15 +21,14 @@ const mutations = {
 
 const actions = {
   async checkAuthUser({ commit }, payload) {
+    commit("isLoaded")
+    localStorage.setItem("token", payload)
+
     try {
-      commit("isLoaded")
-      const res = await getAccountDataByToken(payload)
-
+      const res = await getAccountDataByToken()
       commit("setCurrentAccountData", res)
-      localStorage.setItem("token", payload)
-
     } catch(err) {
-      console.log('error from checkAuthUser: ', err)
+      console.error('Error in: Store/Auth.service.js/checkAuthUser(): ', err)
       commit("clearCurrentAccountData")
     } finally {
       commit("isLoaded")
@@ -37,14 +36,14 @@ const actions = {
   },
 
   async changeAvatarAndUpdateUser({ commit }, payload) {
-    try {
-      commit("isLoaded")
+    commit("isLoaded")
 
+    try {
       const res = await changeAvatar({ userID: payload.userID, bodyFormData: payload.bodyFormData })
       commit("setCurrentAccountData", res)
       
     } catch(err) {
-      console.log('error from changeAvatarAndUpdateUser: ', err)
+      console.error('Error in: Store/Auth.service.js/changeAvatarAndUpdateUser(): ', err)
     } finally {
       commit("isLoaded")
     }
@@ -55,7 +54,9 @@ const actions = {
       const res = await getAllUsers()
       commit("setUserList", res)
     } catch (err){
-      console.log("error from fetchUserList: ", err)
+      console.error("Error in: Store/Auth.service.js/fetchUserList(): ", err)
+    } finally {
+      // commit("isLoaded")
     }
   }
 }

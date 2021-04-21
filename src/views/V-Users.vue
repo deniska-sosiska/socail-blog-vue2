@@ -53,7 +53,7 @@
       getTimeCreated: (timestamp) => parseTime(new Date(timestamp)),
     },
 
-    mounted() {
+    created() {
       this.$store.dispatch("fetchUserList")
     }
   }

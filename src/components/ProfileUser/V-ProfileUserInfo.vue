@@ -50,8 +50,10 @@
 </template>
 
 <script>
+  import { mapMutations } from "vuex"
+
   import { parseTime } from "@/services/time.service"
-  import { changeNameUser, deleteUser } from "@/services/user.service"
+  import { changeNameAccount, deleteAccount } from "@/services/profile.service"
 
 
   export default {
@@ -80,20 +82,21 @@
     }),
 
     methods: {
+      ...mapMutations(['setCurrentAccountData', 'clearCurrentAccountData']),
       async actions() {
         if (this.nameInput == this.arrayNameInput[0]) {
           if (this.userAnswer) {
-            const res = await changeNameUser({ id: this.user._id, name: this.userAnswer })
-            this.$store.commit("setCurrentAccountData", res)
+            const res = await changeNameAccount({ id: this.user._id, name: this.userAnswer })
+            this.setCurrentAccountData(res)
             this.visibility = false
           }
 
         } else {
           if (this.userAnswer == this.arrayPlaceholder[1]) {
-            await deleteUser({ id: this.user._id })
+            await deleteAccount({ id: this.user._id })
 
             this.$router.push({ name: "Posts" })
-            this.$store.commit("clearCurrentAccountData")
+            this.clearCurrentAccountData()
             this.visibility = false
           }
           else {
