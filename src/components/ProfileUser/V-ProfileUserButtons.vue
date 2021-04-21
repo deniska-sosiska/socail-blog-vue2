@@ -17,7 +17,7 @@
 <script>
 
   export default {
-    name: "ProfileInfouserButtons",
+    name: "ProfileUserButtons",
     props: {
       userID: {
         type: String

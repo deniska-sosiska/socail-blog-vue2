@@ -1,19 +1,17 @@
-import { getUserDataByToken } from '@/services/auth.service.js'
+import { getAccountDataByToken } from '@/services/auth.service.js'
 import { changeAvatar } from '@/services/profile.service.js'
 import { getAllUsers } from '@/services/user.service.js'
 
 
 const mutations = {
-  setCurrentUserData(state, payload) {
-    state.userData = payload.userData
-
-    localStorage.setItem("token", payload.token)
-    localStorage.setItem("userData", JSON.stringify(payload.userData))
+  setCurrentAccountData(state, payload) {
+    state.accountData = payload
+    localStorage.setItem("accountData", JSON.stringify(payload))
   },
-  clearCurrentUserData(state) {
-    state.userData = {}
+  clearCurrentAccountData(state) {
+    state.accountData = {}
     localStorage.removeItem("token")
-    localStorage.removeItem("userData")
+    localStorage.removeItem("accountData")
   },
   setUserList(state, payload) {
     state.userList = payload
@@ -25,18 +23,14 @@ const actions = {
   async checkAuthUser({ commit }, payload) {
     try {
       commit("isLoaded")
-      const res = await getUserDataByToken(payload)
+      const res = await getAccountDataByToken(payload)
 
-      const data = {
-        userData: res,
-        token: payload
-      }
-
-      commit("setCurrentUserData", data)
+      commit("setCurrentAccountData", res)
+      localStorage.setItem("token", payload)
 
     } catch(err) {
       console.log('error from checkAuthUser: ', err)
-      commit("clearCurrentUserData")
+      commit("clearCurrentAccountData")
     } finally {
       commit("isLoaded")
     }
@@ -47,12 +41,8 @@ const actions = {
       commit("isLoaded")
 
       const res = await changeAvatar({ userID: payload.userID, bodyFormData: payload.bodyFormData })
-      const data = {
-        userData: res,
-        token: localStorage.token
-      }
-
-      commit("setCurrentUserData", data)
+      commit("setCurrentAccountData", res)
+      
     } catch(err) {
       console.log('error from changeAvatarAndUpdateUser: ', err)
     } finally {
@@ -62,26 +52,21 @@ const actions = {
    
   async fetchUserList({ commit }) {
     try {
-      // commit("isLoaded")
       const res = await getAllUsers()
       commit("setUserList", res)
     } catch (err){
       console.log("error from fetchUserList: ", err)
-    } finally {
-
-      // commit("isLoaded")
     }
-
   }
 }
 
 const getters = {
-  userData: ({ userData }) => userData,
+  accountData: ({ accountData }) => accountData,
   userList: ({ userList }) => userList
 }
 
 const state = () => ({
-  userData: {},
+  accountData: {},
   userList: []
 })
 

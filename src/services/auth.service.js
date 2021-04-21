@@ -2,7 +2,7 @@ import axios from 'axios'
 import { throwErrors, defaultUrl, prefiks } from "./config.service"
 
 
-const getUserDataByToken = async (token) => {
+const getAccountDataByToken = async (token) => {
   try {
     const res = await axios({
       url: `${defaultUrl}${prefiks}/auth/user`,
@@ -60,5 +60,5 @@ const registrationUser = async ({name, email, password}) => {
 export {
   authCurrentUser,
   registrationUser,
-  getUserDataByToken
+  getAccountDataByToken
 }

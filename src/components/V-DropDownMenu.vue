@@ -40,12 +40,12 @@
 
     computed: {
       name() {
-        return this.$store.getters.userData.name
+        return this.$store.getters.accountData.name
       }
     },
     methods: {
       clearUser() {
-        this.$store.commit("clearCurrentUserData")
+        this.$store.commit("clearCurrentAccountData")
         if (this.$router.currentRoute.path != '/') 
           this.$router.push({ name: "Posts" })
       },

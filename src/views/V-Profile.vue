@@ -2,21 +2,35 @@
   <v-col cols="10">
     <v-sheet
       class="profile"
+      height="440px"
     >
-     <VueProfileInfouser />
+    <v-row>
+
+      <ProfileUserAvatar :user="userThatIShow"/>
+      <ProfileUserInfo :user="userThatIShow"/>
+    </v-row>
 
     </v-sheet>
   </v-col>
 </template>
 
 <script>
-  import VueProfileInfouser from '@/components/ProfileInfoUser/V-ProfileInfoUser'
+  import ProfileUserAvatar from "@/components/ProfileUser/V-ProfileUserAvatar"
+  import ProfileUserInfo from "@/components/ProfileUser/V-ProfileUserInfo"
+
 
   export default {
     name: "VueProfile",
 
     components: {
-      VueProfileInfouser
+      ProfileUserAvatar,
+      ProfileUserInfo
+    },
+
+    computed: {
+      userThatIShow() {
+        return this.$store.getters.accountData 
+      },
     },
   }
 </script>

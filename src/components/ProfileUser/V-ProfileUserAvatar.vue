@@ -2,7 +2,7 @@
   <v-col cols="5">
     <v-hover v-slot:default="{ hover }">
       <v-img 
-        :src="userData.avatar ? serverUrl(userData.avatar) : fallBackSrc"
+        :src="user.avatar ? serverUrl(user.avatar) : fallBackSrc"
         width="100%"
         height="380px"
       >
@@ -14,8 +14,8 @@
             
           >
 
-            <VueProfileInfoUserButtons
-              :userID="userData._id"
+            <VueProfileUserButtons
+              :userID="user._id"
               :fallBackSrc="fallBackSrc"
             />
 
@@ -27,17 +27,17 @@
 </template>
 
 <script>
-  import VueProfileInfoUserButtons from './V-ProfileInfoUserButtons'
+  import VueProfileUserButtons from './V-ProfileUserButtons'
 
   export default {
-    name: "",
+    name: "ProfileUserAvatar",
 
     components: {
-      VueProfileInfoUserButtons
+      VueProfileUserButtons
     },
 
     props: {
-      userData: {
+      user: {
         type: Object,
       }
     },

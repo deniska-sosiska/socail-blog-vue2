@@ -12,9 +12,9 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const savedUserData = localStorage.getItem("userData")
+  const savedAccountData = localStorage.getItem("accountData")
   if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (!savedUserData) {
+    if (!savedAccountData) {
       next({
         name: "Authorization",
         params: { fromPage: to.name, flag: true },
@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
     else {  next()  }
   }
   else {  
-    (to.name === "Authorization" && savedUserData)
+    (to.name === "Authorization" && savedAccountData)
     ? next({  name: "Posts"  })
     : next()
   }

@@ -5,7 +5,7 @@
     flat
   >
     <v-container class="py-0 justify-sm-space-between fill-height">
-      <VueAvatar :userAvatar="userData.avatar" />
+      <VueAvatar :userAvatar="accountData.avatar" />
 
       <v-responsive max-width="360">
         <v-text-field
@@ -19,7 +19,7 @@
 
       <template v-if="!loading">
         <v-btn 
-          v-if="!userData.email"
+          v-if="!accountData.email"
           class="buttons"
           @click="routerPush()"
         >
@@ -61,7 +61,7 @@
       VueAvatar
     },
 
-    computed:  mapGetters(['userData', 'loading']),
+    computed:  mapGetters(['accountData', 'loading']),
 
     methods: {
       routerPush() {

@@ -35,7 +35,7 @@
     },
 
     beforeCreate() {
-      localStorage.removeItem("userData")
+      localStorage.removeItem("accountData")
       const token = localStorage.token ? localStorage.token : ''
 
       if (token) {
