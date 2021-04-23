@@ -5,7 +5,7 @@
     size="32"
   >
     <img
-      :src="miniAvatarSrc"
+      :src="miniAvatarSrc"  
       alt="John"
     >
   </v-avatar>
@@ -28,13 +28,16 @@
     computed: {
       miniAvatarSrc() {
         return this.userAvatar ? 
-          (this.userAvatar ? this.serverUrl(this.userAvatar) : this.fallBackSrc)
+          this.serverUrl(this.userAvatar)
           : this.fallBackSrc
+        // return this.fallBackSrc
       },
     },
 
     methods: {
-      serverUrl: (url) =>  process.env.VUE_APP_API_URL+ url,
+      fallback() { this.onErr = true },
+
+      serverUrl: (url) => process.env.VUE_APP_API_URL + url,
     }
   }
 </script>

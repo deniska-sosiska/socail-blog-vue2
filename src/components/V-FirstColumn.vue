@@ -26,8 +26,8 @@
           <v-list-item
             class="pa-0"
           >
-            <router-link
-              :to="'/profile'"
+            <div
+              @click="routerPush()"
               class="links"
             >
               <v-list-item-content>
@@ -35,7 +35,7 @@
                   Profile
                 </v-list-item-title>
               </v-list-item-content>
-            </router-link>
+            </div>
             
           </v-list-item>
         <!-- </v-list-item-group> -->
@@ -48,6 +48,8 @@
 <script>
 
   export default {
+    name: "VueMenuColumn",
+
     data: () => ({
       li: [
         {
@@ -60,6 +62,19 @@
         }
       ]
     }),
+
+    computed: {
+      accountID(){ 
+        // console.log(this.$store.getters.accountData._id)
+        return this.$store.getters.accountData._id
+      }
+    },
+
+    methods: {
+      routerPush(){
+        this.$router.push({ name: "Profile", params: { userID: this.accountID } }).catch(()=>{})
+      }
+    }
   }
 </script>
 

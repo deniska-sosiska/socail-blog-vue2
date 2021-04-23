@@ -6,7 +6,7 @@
         width="100%"
         height="380px"
       >
-        <v-expand-transition > 
+        <v-expand-transition v-if="accountID === user._id"> 
           <div
             v-if="hover"
             class="d-flex transition-fast-in-fast-out light-blue v-card--reveal display-2"
@@ -39,6 +39,9 @@
     props: {
       user: {
         type: Object,
+      },
+      accountID: {
+        type: String
       }
     },
 

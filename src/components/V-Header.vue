@@ -17,7 +17,7 @@
         ></v-text-field>
       </v-responsive>
 
-      <template v-if="!loading">
+      <template v-if="!loadingMainPage">
         <v-btn 
           v-if="!accountData.email"
           class="buttons"
@@ -61,12 +61,13 @@
       VueAvatar
     },
 
-    computed:  mapGetters(['accountData', 'loading']),
+    computed:  mapGetters(['accountData', 'loadingMainPage']),
 
     methods: {
       routerPush() {
-        if (this.$router.currentRoute.fullPath != "/authorization") 
+        if (this.$route.fullPath != "/authorization") 
           this.$router.push({ name: 'Authorization', params: { flag: false } })
+          // .catch(()=>{})
       }
     }
   }

@@ -14,7 +14,6 @@ const axiosApiInstance = axios.create({
 
 // Request interceptor for API calls
 axiosApiInstance.interceptors.request.use((config) => {
-
   if (localStorage.token)
     config.headers['Authorization'] = `Bearer ${localStorage.token}`
   // if (formData) config.headers['Content-Type'] = "multipart/form-data"
@@ -51,7 +50,7 @@ axiosApiInstance.interceptors.response.use(
     }
 
     if (answerError.status === 403 && answerError.errorMessage === "Unauthorized") {
-      console.log("qwe")
+      console.log(answerError)
       router.push({ name: "Posts" })
       store.commit("clearCurrentAccountData")
     }

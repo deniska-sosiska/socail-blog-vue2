@@ -1,51 +1,37 @@
 <template>
   <v-col>
-    <v-card v-for="i in 3" :key="i"
-      max-width="90vw"
-      class="mx-auto card"
-    >
-      <v-list-item>
-        <v-list-item-avatar color="grey"></v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title class="headline">Our Changing Planet</v-list-item-title>
-          <v-list-item-subtitle>by Kurt Wagner</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
 
-      <v-img
-        src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
-        height="194"
-      ></v-img>
-
-      <v-card-text>
-        Visit ten places on our planet that are undergoing the biggest changes today.
-      </v-card-text>
-
-      <v-card-actions>
-        <v-btn
-          text
-          color="deep-purple accent-4"
-        >
-          <router-link
-            :to="'/users'"
-            class="links"
-          > Read </router-link>
-        </v-btn>
-        <v-btn
-          text
-          color="deep-purple accent-4"
-        >
-          Bookmark
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-share-variant</v-icon>
-        </v-btn>
-      </v-card-actions>
+    <!-- <VuePreLoader v-show="loadingContent" /> -->
+    <div class="posts" v-show="!loadingContent">
+      <v-card v-for="(post, i) in posts" :key="i"
+        max-width="90vw"
+        class="mx-auto card"
+      >
+      <VuePost :post="post" />
       </v-card>
-
+    </div>
   </v-col>
 </template>
+
+<script>
+  import VuePost from "@/components/V-Post"
+  import { mapActions, mapGetters } from "vuex"
+
+  export default {
+    name: "VuePosts",
+
+    components: {
+      VuePost
+    },
+
+    computed: mapGetters(['posts', 'loadingContent']),
+
+    created() {
+      this.fetchAllPosts()
+    },
+
+    methods: {
+      ...mapActions(['fetchAllPosts']),
+    }
+  }
+</script>

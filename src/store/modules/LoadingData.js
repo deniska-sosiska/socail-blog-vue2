@@ -1,17 +1,22 @@
 const mutations = {
-  isLoaded(state) {
-    state.loading = !state.loading
+  isLoadingMainPage(state) {
+    state.loadingMainPage = !state.loadingMainPage
+  },
+  isLoadingContent(state) {
+    state.loadingContent = !state.loadingContent
   }
 }
 
 const actions = {}
 
 const getters = {
-  loading: ({ loading }) => loading
+  loadingMainPage: ({ loadingMainPage }) => loadingMainPage,
+  loadingContent: ({ loadingContent }) => loadingContent
 }
 
 const state = () => ({
-  loading: false
+  loadingMainPage: false,
+  loadingContent: false
 })
 
 export default {

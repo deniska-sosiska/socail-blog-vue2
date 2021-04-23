@@ -12,8 +12,9 @@ const routes = [
     meta: {  requiresAuth: true  }
   },
   {
-    path: "/profile",
+    path: "/profile/:userID",
     name: "Profile",
+    props: true,
     component: () => import("@/views/V-Profile"),
     meta: {  requiresAuth: true  }
   },

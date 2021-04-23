@@ -20,7 +20,7 @@
 
         <v-list-item>
           <button @click="routerPush()">
-            <p>Name: {{ name }}</p>
+            <p>Name: {{ accountData.name }}</p>
           </button>
         </v-list-item>
 
@@ -39,19 +39,20 @@
     name: "VueDropDowmMenu",
 
     computed: {
-      name() {
-        return this.$store.getters.accountData.name
-      }
+      accountData() {
+        return this.$store.getters.accountData
+      },
+     
     },
     methods: {
       clearUser() {
         this.$store.commit("clearCurrentAccountData")
-        if (this.$router.currentRoute.path != '/') 
+        if (this.$route.path != '/') 
           this.$router.push({ name: "Posts" })
       },
       routerPush() {
-        if (this.$router.currentRoute.path != '/profile') 
-          this.$router.push({ name: "Profile" })
+        // if (this.$route.name != 'Profile') 
+          this.$router.push({ name: "Profile", params: { userID: this.accountData._id } }).catch(() => {})
       }
     }
   }

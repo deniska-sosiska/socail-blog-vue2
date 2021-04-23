@@ -3,7 +3,7 @@
     class="preLoader" 
     :class="forHeader"
   >
-    <DefaultLoader
+    <RingLoader
       :size="size"
       :color="'#64B5F6'"
     />
@@ -11,7 +11,11 @@
 </template>
 
 <script>
+  import { RingLoader } from "vue-spinners-css";
+
   export default {
+    name: "VuePreloader",
+
     props: {
       size: {
         type: Number,
@@ -21,7 +25,15 @@
         type: String,
         default: ''
       }
-    } 
+    },
+    
+    components: {
+      RingLoader
+    },
+
+    created() {
+      // console.log("loader")
+    }
   }
 </script>
 

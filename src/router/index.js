@@ -13,6 +13,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const savedAccountData = localStorage.getItem("accountData")
+
   if(to.matched.some(record => record.meta.requiresAuth)) {
     if (!savedAccountData) {
       next({
@@ -28,6 +29,7 @@ router.beforeEach((to, from, next) => {
     ? next({  name: "Posts"  })
     : next()
   }
+  
 })
 
 export default router;

@@ -18,7 +18,7 @@
       </v-list-item-content>
     </v-list-item>
 
-    <div class="actions">
+    <div class="actions" v-if="accountID === user._id">
       <div
         :class="!visibility ? 'visibility' : '' "
         class="inputs"
@@ -63,6 +63,9 @@
     props: {
       user: {
         type: Object
+      },
+      accountID: {
+        type: String
       }
     },
     

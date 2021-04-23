@@ -1,61 +1,37 @@
 <template>
   <v-col>
-    <v-card
+    <v-card 
+      v-show="!loadingContent"
       v-for="(user, index) in userList"
       :key="index"
       max-width="90vw"
-      class="mx-auto card"
+      class="mx-auto"
     >
-      <v-list-item>
-        <VueAvatar :userAvatar="user.avatar" />
-        <v-list-item-content>
-          <v-list-item-title class="headline">
-            {{ user.name }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ getTimeCreated(user.dateCreated) }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-
-        <v-list-item-content>
-          <v-list-item-title class="headline">
-            {{ user.email }}
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-card-actions>
-        <v-btn text color="blue lighten-1"> Show more </v-btn>
-        <v-spacer></v-spacer>
-      </v-card-actions>
+      <VueUser :user="user"/>
     </v-card>
+    
   </v-col>
 </template>
 
 <script>
-  import VueAvatar from "@/components/V-Avatar"
   import axiosApiInstance from "@/services/axiosApiInstance"
-  import { mapMutations ,mapGetters } from "vuex"
 
-  import { parseTime } from "@/services/time.service"
+  import VueUser from "@/components/V-User"
+  import { mapMutations ,mapGetters } from "vuex"
 
   export default {
     name: "VueUsers",
 
     components: {
-      VueAvatar
+      VueUser
     },
 
-    computed: {
-      ...mapGetters(['userList'])
-    },
+    computed: mapGetters(['userList', 'loadingContent']),
 
-    methods: {
-      ...mapMutations(['setUserList']),
-      getTimeCreated: (timestamp) => parseTime(new Date(timestamp)),
-    },
+    methods: mapMutations(['setUserList', 'isLoadingContent']),
 
     async created() {
+      this.isLoadingContent()
       try {
         const res = await axiosApiInstance({
           url: `/users`,
@@ -65,14 +41,11 @@
       } catch (err){
         console.error("Error in: Views/V-Users.vue/created(): ", err)
       } finally {
-        // commit("isLoaded")
+        // setTimeout(() => {
+          this.isLoadingContent()
+        // }, 200);
       }
     }
   }
 </script>
 
-<style scoped>
-  .card {
-    display: flex;
-  }
-</style>

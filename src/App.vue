@@ -8,8 +8,8 @@
 
           <VueFirstColumn  />
 
-          <router-view v-if="!loading"></router-view>
-          <VuePreLoader v-else />
+          <router-view v-show="!loadingMainPage"></router-view>
+          <VuePreLoader v-show="loadingMainPage" />
 
         </v-row>
       </v-container>
@@ -31,7 +31,7 @@
     },
 
     computed: {
-      ...mapGetters(['loading'])
+      ...mapGetters(['loadingMainPage'])
     },
 
     created() {
@@ -41,7 +41,7 @@
       if (token) {
         this.getAccountDataByToken(token)
       } else {
-        if (this.$router.currentRoute.name != "Posts") 
+        if (this.$route.name != "Posts") 
           this.$router.push({ name: "Posts" })
       }
     },
@@ -59,6 +59,9 @@
   .links {
     width: 100%;
     height: 100%;
+    text-decoration: none;
+  }
+  a {
     text-decoration: none;
   }
 </style>

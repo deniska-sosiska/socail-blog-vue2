@@ -18,7 +18,7 @@ const mutations = {
 
 const actions = {
   async getAccountDataByToken({ commit }, payload) {
-    commit("isLoaded")
+    commit("isLoadingMainPage")
     localStorage.setItem("token", payload)
 
     try {
@@ -31,12 +31,12 @@ const actions = {
       console.error('Error in: Store/User.js/getAccountDataByToken(): ', err)
       commit("clearCurrentAccountData")
     } finally {
-      commit("isLoaded")
+      commit("isLoadingMainPage")
     }
   },
 
   async changeAvatarAndUpdateUser({ commit }, payload) {
-    commit("isLoaded")
+    commit("isLoadingContent")
 
     try {
       const res = await axiosApiInstance({
@@ -49,7 +49,7 @@ const actions = {
     } catch(err) {
       console.error('Error in: Store/User.js/changeAvatarAndUpdateUser(): ', err)
     } finally {
-      commit("isLoaded")
+      commit("isLoadingContent")
     }
   }
 }
