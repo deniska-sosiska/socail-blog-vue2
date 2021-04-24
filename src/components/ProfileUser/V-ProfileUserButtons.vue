@@ -37,6 +37,7 @@
         const file = this.$refs.avatarBtn
 
         bodyFormData.append('avatar', file.files[0])
+        console.log(bodyFormData)
         this.$store.dispatch("changeAvatarAndUpdateUser", { userID: this.userID, bodyFormData })
       },
 
