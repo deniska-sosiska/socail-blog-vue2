@@ -3,7 +3,13 @@ const routes = [
     path: "/",
     name: "Posts",
     component: () => import("@/views/V-Posts"),
-    
+  },
+  {
+    path: "/post/:postID",
+    name: 'Post',
+    props: true,
+    component: () => import("@/views/V-ShowPost"),
+    // meta: {  requiresAuth: true  }
   },
   {
     path: "/users",
@@ -24,6 +30,6 @@ const routes = [
     props: true,
     component: () => import("@/views/V-Authorization"),
   }
-];
+]
 
 export default routes

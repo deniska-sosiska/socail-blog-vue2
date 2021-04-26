@@ -7,8 +7,8 @@ const getUserByID = async ({ userID }) => {
       method: "get"
     })
   } catch(err) {
-    console.error("Error in: Services/posts.service/getUserByID(): ", err)
-    console.warn('Заменил пользователя на "User deleted".')
+    // console.error("Error in: Services/posts.service/getUserByID(): ", err)
+    // console.warn('Заменил пользователя на "User deleted".')
     return { avatar: '', name: "User deleted", _id: userID}
   }
 }
@@ -25,7 +25,15 @@ const getPostByID = async ({ postID }) => {
   }
 }
 
+const setLikePost = async ({ postID }) => {
+  await axiosApiInstance({
+    url: `/posts/like/${postID}`,
+    method: "put"
+  })
+}
+
 export {
   getUserByID,
-  getPostByID
+  getPostByID,
+  setLikePost
 }

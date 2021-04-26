@@ -30,29 +30,33 @@
       VueFirstColumn
     },
 
-    computed: {
-      ...mapGetters(['loadingMainPage'])
-    },
+    computed: mapGetters(['loadingMainPage']),
 
     created() {
       localStorage.removeItem("accountData")
       const token = localStorage.token ? localStorage.token : ''
 
-      if (token) {
+      if (token)
         this.getAccountDataByToken(token)
-      } else {
-        if (this.$route.name != "Posts") 
-          this.$router.push({ name: "Posts" })
-      }
     },
 
-    methods: {
-      ...mapActions(['getAccountDataByToken'])
-    }
-  };
+    methods: mapActions(['getAccountDataByToken'])
+    
+  }
 </script>
 
 <style >
+  @font-face {
+    font-family: 'Comfortaa';
+    src:url('./assets/Comfortaa-Regular.ttf');
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #2c3e50;
+    font-family: "Comfortaa";
+  }
   .card {
     margin-bottom: 30px;
   }

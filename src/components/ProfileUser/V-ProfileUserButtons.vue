@@ -37,7 +37,6 @@
         const file = this.$refs.avatarBtn
 
         bodyFormData.append('avatar', file.files[0])
-        console.log(bodyFormData)
         this.$store.dispatch("changeAvatarAndUpdateUser", { userID: this.userID, bodyFormData })
       },
 
@@ -61,5 +60,8 @@
   .buttons > button:first-child {
     margin-right: 5px;
     margin-left: 15px;
+  }
+  button {
+    letter-spacing: normal
   }
 </style>

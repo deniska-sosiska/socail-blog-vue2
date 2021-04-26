@@ -162,7 +162,7 @@
         
         setTimeout(() => {
           this.errorMessageFlag = false
-        }, 3200);
+        }, 3200)
       },
 
       resetForm() {

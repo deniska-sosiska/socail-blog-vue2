@@ -43,7 +43,7 @@
       } finally {
         // setTimeout(() => {
           this.isLoadingContent()
-        // }, 200);
+        // }, 200)
       }
     }
   }

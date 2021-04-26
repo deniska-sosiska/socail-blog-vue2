@@ -31,7 +31,7 @@ axiosApiInstance.interceptors.response.use(
   (error) => {
 
     let answerError = ''
-    const originalRequest = error.response;
+    const originalRequest = error.response
 
     if (originalRequest.data.error[0].message) {
       const resError = {

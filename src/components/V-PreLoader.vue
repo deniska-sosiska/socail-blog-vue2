@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import { RingLoader } from "vue-spinners-css";
+  import { RingLoader } from "vue-spinners-css"
 
   export default {
     name: "VuePreloader",

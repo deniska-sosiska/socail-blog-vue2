@@ -86,7 +86,8 @@
   }
   .links:hover {
     background: #64B5F6;
-    color: white
+    color: white;
+    cursor: pointer;
   }
   .links.active {
     background: #64B5F6;

@@ -7,7 +7,7 @@
         max-width="90vw"
         class="mx-auto card"
       >
-      <VuePost :post="post" />
+      <VuePost :postID="post._id" />
       </v-card>
     </div>
   </v-col>

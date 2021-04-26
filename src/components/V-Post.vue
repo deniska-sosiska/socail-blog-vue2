@@ -11,6 +11,7 @@
       <v-list-item>
       <v-list-item-avatar 
         v-if="deletedUser"
+        class="mr-10"
         color="grey"
         size="32"
       >
@@ -39,6 +40,8 @@
 
       <div class="buttons">
         <v-btn
+          :to='{ name: "Post", params:{ postID }}'
+          :disabled="showMoreTflag"
           text
           color="blue lighten-1"
         >
@@ -47,24 +50,17 @@
 
         <v-btn
           :to='{ name: "Profile", params: { userID: user._id }}'
-          :disabled="deletedUser"
+          :disabled="deletedUser || showProfileTflag"
           text
           color="blue lighten-1"
         >
           Show Author
         </v-btn>
-        <!-- <v-btn
-          v-else
-          text
-          color="blue lighten-1"
-        >
-          Show deleted
-        </v-btn> -->
       </div>
       
       <v-spacer></v-spacer>
-      <v-btn icon>
-        {{fullPost.likes && fullPost.likes.length}}<v-icon>mdi-heart</v-icon>
+      <v-btn icon  @click="setLike()">
+        {{post.likes.length}}<v-icon>mdi-heart</v-icon>
       </v-btn>
       <v-btn icon>
         <v-icon>mdi-share-variant</v-icon>
@@ -75,16 +71,23 @@
 </template>
 
 <script>
-  import { getUserByID, getPostByID } from "@/services/posts.service"
+  import { getUserByID, getPostByID, setLikePost } from "@/services/posts.service"
   import VueAvatar from "@/components/V-Avatar"
 
   export default {
     name: "VuePost",
 
     props: {
-      post: {
-        type: Object,
-        default: () => ({}),
+      postID: {
+        type: String
+      },
+      showMoreTflag: {
+        type: Boolean,
+        default: false
+      },
+      showProfileTflag: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -94,7 +97,7 @@
 
     data: () => ({
       user: {},
-      fullPost: {},
+      post: {},
       localLoader: true,
     }),
 
@@ -105,9 +108,16 @@
     },
 
     async created() {
-      this.fullPost = await getPostByID({ postID: this.post._id })
-      this.user = await getUserByID({ userID: this.post.postedBy})
+      this.post = await getPostByID({ postID: this.postID })  
+      this.user = await getUserByID({ userID: this.post.postedBy })
       this.localLoader = false
+    },
+
+    methods: {
+      async setLike() {
+        await setLikePost({ postID: this.postID })
+        this.post = await getPostByID({ postID: this.postID })  
+      }
     }
   }
 </script>
