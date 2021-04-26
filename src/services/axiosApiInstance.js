@@ -51,6 +51,7 @@ axiosApiInstance.interceptors.response.use(
 
     if (answerError.status === 403 && answerError.errorMessage === "Unauthorized") {
       console.log(answerError)
+      alert('Problem: "' + answerError.errorMessage + '". Sign In, please')
       router.push({ name: "Posts" })
       store.commit("clearCurrentAccountData")
     }

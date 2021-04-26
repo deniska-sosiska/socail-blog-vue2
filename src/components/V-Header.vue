@@ -83,6 +83,6 @@
 
 <style scoped>
   .buttons {
-    width: 150px;
+    width: 200px;
   }
 </style>

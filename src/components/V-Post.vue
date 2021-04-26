@@ -26,7 +26,7 @@
         <v-list-item-subtitle>{{ user.name }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-
+    
     <v-img
       :src="imageUrl(post.image)"
       :height="showMoreTflag ? '100%': '204' "
@@ -37,7 +37,9 @@
       <p 
         v-if="showMoreTflag"
         class="mb-1"
-      >fullText: {{ post.fullText }}</p>
+      >
+        {{ post.fullText }}
+      </p>
     </v-card-text>
 
     <v-card-actions>
@@ -66,7 +68,11 @@
       <v-btn icon  @click="setLike()">
         {{post.likes.length}}<v-icon>mdi-heart</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn 
+        @click="copyPath()"
+        v-if="$route.name == 'Post' "
+        icon
+      >
         <v-icon>mdi-share-variant</v-icon>
       </v-btn>
     </v-card-actions>
@@ -124,8 +130,11 @@
         this.post = await getPostByID({ postID: this.postID })  
       },
       imageUrl(url) {
-        return createAvatarUrl({ userAvatar: url })
-
+        return createAvatarUrl({ userAvatar: url, bigImage: true })
+      },
+      async copyPath() {
+        await navigator.clipboard.writeText(document.URL);
+        alert('Copied!');
       }
     }
   }
