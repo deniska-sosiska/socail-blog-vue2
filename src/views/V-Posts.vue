@@ -1,5 +1,5 @@
 <template>
-  <v-col>
+  <v-col cols="10">
 
     <!-- <VuePreLoader v-show="loadingContent" /> -->
     <div class="posts" v-show="!loadingContent">

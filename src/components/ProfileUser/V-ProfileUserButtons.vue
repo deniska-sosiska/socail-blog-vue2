@@ -21,9 +21,6 @@
     props: {
       userID: {
         type: String
-      },
-      fallBackSrc: {
-        type: String
       }
     },
 
@@ -42,8 +39,8 @@
 
       deleteUserAvatar() {
         const bodyFormData = new FormData()
-        const file = this.fallBackSrc
-
+        // const file = this.fallBackSrc
+        const file = ''
         bodyFormData.append('avatar', file)
         this.$store.dispatch("changeAvatarAndUpdateUser", { userID: this.userID, bodyFormData })
       }

@@ -2,7 +2,7 @@
   <v-col cols="5">
     <v-hover v-slot:default="{ hover }">
       <v-img 
-        :src="urlAvatar"
+        :src="avatarUrl()"
         width="100%"
         height="380px"
       >
@@ -16,7 +16,6 @@
 
             <VueProfileUserButtons
               :userID="user._id"
-              :fallBackSrc="fallBackSrc"
             />
 
           </div>
@@ -28,6 +27,7 @@
 
 <script>
   import VueProfileUserButtons from './V-ProfileUserButtons'
+  import createAvatarUrl from "@/services/Avatar.service" 
 
   export default {
     name: "ProfileUserAvatar",
@@ -45,29 +45,9 @@
       }
     },
 
-    computed: {
-      urlAvatar() {
-        const newUrl = this.serverUrl(this.user.avatar)
-        return this.user.avatar ? 
-        ( this.imageExists(newUrl) ? newUrl : this.fallBackSrc )
-        : this.fallBackSrc
-      }
-    },
-
-    data: () => ({
-      fallBackSrc: "https://agile.yakubovsky.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
-    }),
-
     methods: {
-      serverUrl: (url) =>  process.env.VUE_APP_API_URL+ url,
-
-      imageExists(image_url){
-        
-        let http = new XMLHttpRequest()
-        http.open('HEAD', image_url, false)
-        http.send()
-        
-        return http.status != 404
+      avatarUrl() {
+        return createAvatarUrl({ userAvatar: this.user.avatar })
       }
     }
   }

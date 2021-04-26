@@ -5,7 +5,15 @@
     flat
   >
     <v-container class="py-0 justify-sm-space-between fill-height">
-      <VueAvatar :userAvatar="accountData.avatar" />
+
+      <v-list-item-avatar 
+        v-if="!accountData.avatar"
+        class="mr-10"
+        color="blue"
+        size="32"
+      ></v-list-item-avatar>
+
+      <VueAvatar v-else :userAvatar="accountData.avatar" />
 
       <v-responsive max-width="360">
         <v-text-field

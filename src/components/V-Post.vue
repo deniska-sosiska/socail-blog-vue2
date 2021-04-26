@@ -28,12 +28,16 @@
     </v-list-item>
 
     <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
-      height="204"
+      :src="imageUrl(post.image)"
+      :height="showMoreTflag ? '100%': '204' "
     ></v-img>
 
     <v-card-text>
-      {{ post.description }}
+      <p> {{ post.description }}</p>
+      <p 
+        v-if="showMoreTflag"
+        class="mb-1"
+      >fullText: {{ post.fullText }}</p>
     </v-card-text>
 
     <v-card-actions>
@@ -72,6 +76,7 @@
 
 <script>
   import { getUserByID, getPostByID, setLikePost } from "@/services/posts.service"
+  import createAvatarUrl from "@/services/Avatar.service" 
   import VueAvatar from "@/components/V-Avatar"
 
   export default {
@@ -117,6 +122,10 @@
       async setLike() {
         await setLikePost({ postID: this.postID })
         this.post = await getPostByID({ postID: this.postID })  
+      },
+      imageUrl(url) {
+        return createAvatarUrl({ userAvatar: url })
+
       }
     }
   }
