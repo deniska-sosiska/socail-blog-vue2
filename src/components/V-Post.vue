@@ -1,6 +1,14 @@
 <template>
   <div class="post">
-    <v-list-item>
+    <v-skeleton-loader
+      v-if="localLoader"
+      type='list-item-avatar-two-line, image, list-item, actions'
+    ></v-skeleton-loader>
+
+    <div class="wrapper" 
+      v-if="!localLoader"
+    >
+      <v-list-item>
       <v-list-item-avatar 
         v-if="deletedUser"
         color="grey"
@@ -20,7 +28,7 @@
 
     <v-img
       src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
-      height="194"
+      height="204"
     ></v-img>
 
     <v-card-text>
@@ -30,25 +38,28 @@
     <v-card-actions>
 
       <div class="buttons">
-        <router-link
-          :to="'/users'"
-          class="links"
-        > 
-          <v-btn
-            text
-            color="blue lighten-1"
-          >Show more
-          </v-btn>
-        </router-link>
+        <v-btn
+          text
+          color="blue lighten-1"
+        >
+          Show more
+        </v-btn>
 
-        <router-link :to='{ name: "Profile", params: { userID: user._id }}'>
-          <v-btn
-            text
-            color="blue lighten-1"
-          >
-            Show Author
-          </v-btn>
-        </router-link>
+        <v-btn
+          :to='{ name: "Profile", params: { userID: user._id }}'
+          :disabled="deletedUser"
+          text
+          color="blue lighten-1"
+        >
+          Show Author
+        </v-btn>
+        <!-- <v-btn
+          v-else
+          text
+          color="blue lighten-1"
+        >
+          Show deleted
+        </v-btn> -->
       </div>
       
       <v-spacer></v-spacer>
@@ -59,6 +70,7 @@
         <v-icon>mdi-share-variant</v-icon>
       </v-btn>
     </v-card-actions>
+    </div>
   </div>
 </template>
 
@@ -82,18 +94,20 @@
 
     data: () => ({
       user: {},
-      fullPost: {}
+      fullPost: {},
+      localLoader: true,
     }),
 
     computed: {
       deletedUser() {
-        return (this.post.postedBy.name === 'deleted')
+        return (this.user.name === 'User deleted')
       }
     },
 
     async created() {
       this.fullPost = await getPostByID({ postID: this.post._id })
       this.user = await getUserByID({ userID: this.post.postedBy})
+      this.localLoader = false
     }
   }
 </script>
