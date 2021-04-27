@@ -20,8 +20,8 @@ const getPostByID = async ({ postID }) => {
       method: "get"
     })
   } catch(err) {
-    console.error("Error in: Services/posts.service/getPostByID(): ", err)
-    // return { avatar: '', name: "deleted", _id: userID}
+    // console.error("Error in: Services/posts.service/getPostByID(): ", err)
+    return { avatar: '', name: "Post deleted", _id: postID, likes: []}
   }
 }
 

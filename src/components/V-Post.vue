@@ -42,6 +42,17 @@
       </p>
     </v-card-text>
 
+    <v-row
+      class="px-6 pb-3"
+    >
+      <VueCreatePost
+        :showForm="showForm"
+        :postID="post._id"
+        @hide-form="showForm = false"
+     />
+    </v-row>
+
+
     <v-card-actions>
 
       <div class="buttons">
@@ -53,7 +64,6 @@
         >
           Show more
         </v-btn>
-
         <v-btn
           :to='{ name: "Profile", params: { userID: user._id }}'
           :disabled="deletedUser || showProfileTflag"
@@ -62,11 +72,37 @@
         >
           Show Author
         </v-btn>
+        <v-btn
+          v-if="(accountID == user._id) && (showMoreTflag)"
+          text
+          @click="showForm = true"
+          color="blue lighten-1"
+        >
+          Update Post
+        </v-btn>
+        <v-btn
+          v-if="(accountID == user._id) && (showMoreTflag)"
+          text
+          @click="triggerInputClick()"
+          color="blue lighten-1"
+        >
+          Update Image
+        </v-btn>
+        <input type="file" style="display: none" ref="avatarBtn" accept="image/*" @change="updateImage()">
+
+        <v-btn
+          v-if="(accountID == user._id) && (showMoreTflag)"
+          text
+          @click="deletePost()"
+          color="blue lighten-1"
+        >
+          Delete Post
+        </v-btn>
       </div>
       
       <v-spacer></v-spacer>
       <v-btn icon  @click="setLike()">
-        {{post.likes.length}}<v-icon>mdi-heart</v-icon>
+        {{ post.likes.length + 7 }}<v-icon>mdi-heart</v-icon>
       </v-btn>
       <v-btn 
         @click="copyPath()"
@@ -81,7 +117,10 @@
 </template>
 
 <script>
+  import axiosApiInstance from "@/services/axiosApiInstance"
   import { getUserByID, getPostByID, setLikePost } from "@/services/posts.service"
+
+  import VueCreatePost from "@/components/ProfileUser/V-CreatePost"
   import createAvatarUrl from "@/services/Avatar.service" 
   import VueAvatar from "@/components/V-Avatar"
 
@@ -104,15 +143,20 @@
 
     components: {
       VueAvatar,
+      VueCreatePost
     },
 
     data: () => ({
       user: {},
       post: {},
       localLoader: true,
+      showForm: false
     }),
 
     computed: {
+      accountID() {
+        return this.$store.getters.accountData._id
+      },
       deletedUser() {
         return (this.user.name === 'User deleted')
       }
@@ -129,13 +173,39 @@
         await setLikePost({ postID: this.postID })
         this.post = await getPostByID({ postID: this.postID })  
       },
+
       imageUrl(url) {
         return createAvatarUrl({ userAvatar: url, bigImage: true })
       },
+
+
+
+      triggerInputClick() {
+        this.$refs.avatarBtn.click()
+      },
+      async updateImage() {
+        const bodyFormData = new FormData()
+        const file = this.$refs.avatarBtn
+
+        bodyFormData.append('image', file.files[0])
+        this.post = await axiosApiInstance({
+          url: `/posts/upload/${this.postID}`,
+          method: "put",
+          data: bodyFormData
+        })
+      },
+      async deletePost() {
+        await axiosApiInstance({
+          url: `/posts/${this.postID}`,
+          method: 'delete'
+        })
+        this.$router.go(-1)
+      },
+
       async copyPath() {
         await navigator.clipboard.writeText(document.URL);
         alert('Copied!');
-      }
+      },
     }
   }
 </script>

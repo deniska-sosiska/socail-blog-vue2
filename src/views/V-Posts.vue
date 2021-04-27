@@ -3,11 +3,11 @@
 
     <!-- <VuePreLoader v-show="loadingContent" /> -->
     <div class="posts" v-show="!loadingContent">
-      <v-card v-for="(post, i) in posts" :key="i"
+      <v-card v-for="(post, i) in postsThatIShow" :key="i"
         max-width="90vw"
         class="mx-auto card"
       >
-      <VuePost :postID="post._id" />
+      <VuePost :key="post._id" :postID="post._id" />
       </v-card>
     </div>
   </v-col>
@@ -24,10 +24,15 @@
       VuePost
     },
 
-    computed: mapGetters(['posts', 'loadingContent']),
+    computed: {
+      postsThatIShow() {
+        return this.posts
+      },
+      ...mapGetters(['posts', 'loadingContent']),
+    },
 
     created() {
-      this.fetchAllPosts()
+      this.fetchAllPosts({ limit: 0 })
     },
 
     methods: {

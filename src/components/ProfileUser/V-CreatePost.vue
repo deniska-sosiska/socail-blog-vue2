@@ -1,117 +1,96 @@
 <template>
-  <v-row
-    v-if="accountID === userID"
-    class="profile"
-  >
-    <v-col cols="12">
-      <v-btn 
-        width="100%"
+  <v-col cols="12" v-if="showForm">
+    <v-form
+      ref="form"
+      v-model="valid"
+      lazy-validation
+    >
+      <v-text-field
+        v-model="title"
+        :rules="titleRules"
+        label="Title"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="fullText"
+        :rules="fullTextRules"
+        label="Full text"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="description"
+        :rules="[v => !!v || 'Description is required']"
+        label="Description"
+        required
+      ></v-text-field>
+
+      <v-btn
+        :disabled="!valid"
         color="blue lighten-1"
-        @click="showForm = true"        
+        class="mr-4"
+        @click="validate"
       >
-        want to create new post?
+        Submit
       </v-btn>
 
-      <v-form
-        v-if="showForm"
-        ref="form"
-        v-model="valid"
-        lazy-validation
+      <v-btn
+        color="blue lighten-1"
+        class="mr-4"
+        @click="reset"
       >
-        <v-text-field
-          v-model="title"
-          :counter="counter"
-          :rules="titleRules"
-          label="Title"
-          required
-        ></v-text-field>
+        Reset Form
+      </v-btn>
 
-        <v-text-field
-          v-model="fullText"
-          :rules="fullTextRules"
-          label="Full text"
-          required
-        ></v-text-field>
-
-        <v-select
-          v-model="description"
-          :rules="[v => !!v || 'Item is required']"
-          label="Description"
-          required
-        ></v-select>
-
-        <v-checkbox
-          v-model="checkbox"
-          :rules="[v => !!v || 'You must agree to continue!']"
-          label="Do you agree?"
-          required
-        ></v-checkbox>
-
-        <v-btn
-          :disabled="!valid"
-          color="blue lighten-1"
-          class="mr-4"
-          @click="validate"
-        >
-          Validate
-        </v-btn>
-
-        <v-btn
-          color="blue lighten-1"
-          class="mr-4"
-          @click="reset"
-        >
-          Reset Form
-        </v-btn>
-
-        <v-btn
-          color="blue lighten-2"
-          @click="hideForm()"
-        >
-          Cancel
-        </v-btn>
-      </v-form>
-    </v-col>
-  </v-row>
+      <v-btn
+        color="blue lighten-2"
+        @click="hideForm()"
+      >
+        Cancel
+      </v-btn>
+    </v-form>
+  </v-col>
 </template>
 
 <script>
+  import axiosApiInstance from "@/services/axiosApiInstance"
+
   export default {
     name: "VueCreatePost",
 
     props: {
       userID: {
         type: String,
+      },
+      showForm: {
+        type: Boolean,
+        default: false
+      },
+      postID: {
+        type: String,
+        default: ""
       }
     },
 
     data: () => ({
-      showForm: false,
       valid: true,
 
-      counter: 20,
-      title: '',
+      counter: 5,
+      title: 'Test post',
       titleRules: [
         v => !!v || 'Title is required',
-        v => (v && v.length <= 20) || `Title must be less than ${20} characters.`,
+        v => (v && v.length >= 5) || `Title must be more than ${5} characters.`,
       ],
 
 
-      fullText: '',
+      fullText: 'fullTextfullText fullTextfullText fullTextfullTextfullTextfullTextfullTextfullText fullTextfullText fullTextfullText',
       fullTextRules: [
         v => !!v || 'Full text is required',
         v => (v && v.length >= 20) || `Title must be more than ${20} characters.`,
       ],
 
-
-      select: null,
-      description: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-      ],
-      checkbox: false,
+      description: 'Test post for delete'
     }),
 
     computed: {
@@ -122,17 +101,58 @@
 
     methods: {
       validate () {
-        this.$refs.form.validate()
+        if (this.$refs.form.validate()) {
+          this.submit()
+        } 
       },
       reset () {
         this.$refs.form.reset()
       },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      },
 
       hideForm() {
-        this.showForm = false
+        this.reset()
+        this.$emit("hide-form")
+      },
+
+      async submit() {
+        if (this.postID) {
+          try {
+            await axiosApiInstance({
+              url: `/posts/${this.postID}`,
+              method: 'patch',
+              data: {
+                title: this.title,
+                fullText: this.fullText,
+                description: this.description
+              }
+            })
+            this.hideForm()
+            this.$emit("updateUsersPosts")
+          } catch(err) {
+            alert('Problem: "' + err.errorMessage + '"')
+            this.hideForm()
+          }
+        }
+        else {
+          try {
+            await axiosApiInstance({
+              url: '/posts',
+              method: 'post',
+              data: {
+                title: this.title,
+                fullText: this.fullText,
+                description: this.description
+              }
+            })
+            this.hideForm()
+            this.$emit("updateUsersPosts")
+          } catch(err) {
+            alert('Problem: "' + err.errorMessage + '"')
+            this.hideForm()
+          }
+        }
+
+
       }
     },
   }

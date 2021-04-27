@@ -11,7 +11,27 @@
 
       <v-divider class="my-0"></v-divider>
 
-      <VueCreatePost :userID="userID" />
+
+      <v-row
+        v-if="accountID === userID"
+        class="profile"
+      >
+        <v-btn 
+          width="100%"
+          color="blue lighten-1"
+          @click="showForm = true"        
+        >
+          want to create new post?
+        </v-btn>
+        <VueCreatePost
+          v-if="accountID == userID"
+          :userID="userID"
+          :showForm="showForm"
+          @hide-form="showForm = false"
+          @updateUsersPosts="updateUsersPosts()"
+        />
+      </v-row>
+      
     </v-sheet>
 
       <v-card v-for="(post, i) in postsUser" :key="i"
@@ -60,6 +80,7 @@
 
     data: () => ({
       userData: {},
+      showForm: false,
       localLoader: true
     }),
 
@@ -67,7 +88,7 @@
       async $route(to) {
         this.localLoader = true
         this.userData = await getUserByID({ userID: to.params.userID })
-        this.fetchAllPosts()
+        this.fetchAllPosts({ userID: this.userID, limit: 0 })
         this.localLoader = false
       }
     },
@@ -97,12 +118,18 @@
 
     async created() {
       this.userData = await getUserByID({ userID: this.userID })
-      this.fetchAllPosts()
+      this.fetchAllPosts({ postedBy: this.userThatIShow._id, limit: 0 })
       this.localLoader = false
     },
 
     methods: {
       ...mapActions(['fetchAllPosts']),
+      
+      updateUsersPosts() {
+        this.localLoader = true
+        this.fetchAllPosts({ postedBy: this.userThatIShow._id, limit: 0 })
+        this.localLoader = false
+      }
     }
   }
 </script>

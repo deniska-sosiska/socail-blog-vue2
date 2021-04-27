@@ -5,7 +5,7 @@ const serverUrl = (url) => process.env.VUE_APP_API_URL + url
 
 const imageExists = (image_url) => {
   let http = new XMLHttpRequest()
-  http.open('HEAD', image_url, false)
+  http.open('GET', image_url, false)
   http.send()
 
   return http.status != 404
