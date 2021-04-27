@@ -2,7 +2,10 @@
   <v-col cols="10">
     <VueBackRoute />
     <v-sheet>
-      <VuePost :postID="postID" :showMoreTflag="true" />
+      <VuePost 
+        :postID="postID"
+        :showMoreTflag="true"
+      />
     </v-sheet>
   </v-col> 
 </template>

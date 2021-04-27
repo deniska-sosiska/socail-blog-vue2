@@ -2,7 +2,6 @@
   <v-col cols="10">
     
     <VueBackRoute v-if="accountID !== userID"/>
-    
     <v-sheet v-show="!localLoader">
 
       <v-row class="profile">
@@ -15,18 +14,6 @@
       <VueCreatePost :userID="userID" />
     </v-sheet>
 
-
-      <!-- <v-divider class="my-0"></v-divider> -->
-
-      <!-- <div 
-        v-for="(post, key, index) in postsUser"
-        :key="index"
-        class="profile"
-      >
-        <v-divider class="mt-4"></v-divider>
-        <VuePost :postID="post._id" />
-      </div> -->
-
       <v-card v-for="(post, i) in postsUser" :key="i"
         max-width="90vw"
         class="mt-6 card"
@@ -37,7 +24,6 @@
           :showProfileTflag="true"
         />
       </v-card>
-
 
   </v-col>
 </template>
