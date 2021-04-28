@@ -1,10 +1,10 @@
 <template>
-  <v-col cols="5">
+  <v-col cols="12" md="5">
     <v-hover v-slot:default="{ hover }">
       <v-img 
         :src="avatarUrl()"
         width="100%"
-        height="380px"
+        height="410px"
       >
         <v-expand-transition v-if="accountID === user._id"> 
           <div

@@ -25,30 +25,29 @@
         label="Description"
         required
       ></v-text-field>
+      <div class="buttons d-flex justify-end flex-wrap">
+          <v-btn
+            :disabled="!valid"
+            color="blue lighten-1"
+            @click="validate"
+          >
+            Submit
+          </v-btn>
 
-      <v-btn
-        :disabled="!valid"
-        color="blue lighten-1"
-        class="mr-4"
-        @click="validate"
-      >
-        Submit
-      </v-btn>
+          <v-btn
+            color="blue lighten-1"
+            @click="reset"
+          >
+            Reset Form
+          </v-btn>
 
-      <v-btn
-        color="blue lighten-1"
-        class="mr-4"
-        @click="reset"
-      >
-        Reset Form
-      </v-btn>
-
-      <v-btn
-        color="blue lighten-2"
-        @click="hideForm()"
-      >
-        Cancel
-      </v-btn>
+          <v-btn
+            color="blue lighten-1"
+            @click="hideForm()"
+          >
+            Cancel
+          </v-btn>
+      </div>
     </v-form>
   </v-col>
 </template>
@@ -77,20 +76,20 @@
       valid: true,
 
       counter: 5,
-      title: 'Test post',
+      title: '',
       titleRules: [
         v => !!v || 'Title is required',
         v => (v && v.length >= 5) || `Title must be more than ${5} characters.`,
       ],
 
 
-      fullText: 'fullTextfullText fullTextfullText fullTextfullTextfullTextfullTextfullTextfullText fullTextfullText fullTextfullText',
+      fullText: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis aliquid molestiae quos atque ipsam nobis eos nulla quaerat temporibus voluptates error tenetur, repellendus accusantium libero saepe nihil placeat. Tempora, corporis.',
       fullTextRules: [
         v => !!v || 'Full text is required',
         v => (v && v.length >= 20) || `Title must be more than ${20} characters.`,
       ],
 
-      description: 'Test post for delete'
+      description: ''
     }),
 
     computed: {
@@ -127,7 +126,8 @@
               }
             })
             this.hideForm()
-            this.$emit("updateUsersPosts")
+            this.$emit("update-post")
+            this.$emit("update-users-posts")
           } catch(err) {
             alert('Problem: "' + err.errorMessage + '"')
             this.hideForm()
@@ -145,7 +145,7 @@
               }
             })
             this.hideForm()
-            this.$emit("updateUsersPosts")
+            this.$emit("update-users-posts")
           } catch(err) {
             alert('Problem: "' + err.errorMessage + '"')
             this.hideForm()
@@ -157,3 +157,16 @@
     },
   }
 </script>
+
+<style scoped>
+  .buttons > button {
+    margin-left: 15px
+    
+  }
+  @media (max-width: 480px) {
+    .buttons > button {
+      flex-basis: 100%;
+      margin: 5px 0px;
+    }
+  }
+</style>

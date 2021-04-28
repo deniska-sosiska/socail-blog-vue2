@@ -13,7 +13,7 @@ const actions = {
       let postedBy = '', limit = '', skip = ''
       
       if (payload.postedBy) postedBy = `&postedBy=${payload.postedBy}`
-      if (payload.limit) limit = `&limit=${payload.limit}` 
+      if (payload.limit || payload.limit === 0) limit = `&limit=${payload.limit}` 
       if (payload.skip) skip = `&skip=${payload.skip}` 
       // just...
 

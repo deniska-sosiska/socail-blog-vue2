@@ -1,6 +1,5 @@
 <template>
-  <v-col>
-
+  <v-col cols="12" md="10">
     <div class="message">
       <v-sheet  v-if="flag">
         <p>You must be logged in to access the {{ fromPage }} page.</p>

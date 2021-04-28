@@ -29,6 +29,11 @@ const routes = [
     name: "Authorization",
     props: true,
     component: () => import("@/views/V-Authorization"),
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: () => import("@/views/V-NotFound") 
   }
 ]
 

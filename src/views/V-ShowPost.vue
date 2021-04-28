@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="10">
+  <v-col cols="12" md="10">
     <VueBackRoute />
     <v-sheet>
       <VuePost 

@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="10">
+  <v-col cols="12" md="10">
     
     <VueBackRoute v-if="accountID !== userID"/>
     <v-sheet v-show="!localLoader">
@@ -28,14 +28,13 @@
           :userID="userID"
           :showForm="showForm"
           @hide-form="showForm = false"
-          @updateUsersPosts="updateUsersPosts()"
+          @update-users-posts="updateUsersPosts()"
         />
       </v-row>
       
     </v-sheet>
 
       <v-card v-for="(post, i) in postsUser" :key="i"
-        max-width="90vw"
         class="mt-6 card"
       >
         <VuePost 

@@ -1,22 +1,20 @@
 <template>
-  <v-col cols="7" class="infoColumn">
-    <v-list-item class="nameItem">
-      <v-list-item-content>
-        <v-list-item-title class="headline"><p id="name">{{ user.name }}</p></v-list-item-title>
-        <v-list-item-subtitle> {{ getTimeCreated(user.dateCreated) }} </v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
+  <v-col cols="12" md="7" class="infoColumn">
+    <div class="wrapper">
+      <div class="nameItem">
+        <h2 id="name">{{ user.name }}</h2>
+        <p> {{ getTimeCreated(user.dateCreated) }} </p>
+      </div>
 
-    <v-divider class="my-2"></v-divider>
+      <v-divider></v-divider>
 
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title class="headline">City: Zaporizhzhia</v-list-item-title>
-        <v-list-item-title class="headline">Work: Developer</v-list-item-title>
-        <v-list-item-title class="headline">Phone: +380631241251</v-list-item-title>
-        <v-list-item-title class="headline">Email: {{ user.email }}</v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
+      <div class="additionalContent">
+        <p>City: Zaporizhzhia</p>
+        <p>Work: Developer</p>
+        <p>Phone: +380631241251</p>
+        <p>Email: {{ user.email }}</p>
+      </div>
+    </div>
 
     <div class="actions" v-if="accountID === user._id">
       <div
@@ -138,15 +136,23 @@
 </script>
 
 <style scoped>
+  .infoColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   .infoColumn #name {
-    font-size: 40px;
-    margin-bottom: 0px;
+    font-size: 28px;
   }
-  .infoColumn .headline {
-    line-height: 42px;
+  .additionalContent > p {
+    font-size: 20px;
+    margin: 10px 0px;
+    word-wrap: break-word;
   }
-  .nameItem > .v-list-item__content {
-    max-height: 70px;
+  .nameItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 0px;
   }
 
@@ -155,12 +161,13 @@
   .actions {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 0px 14px;
+    align-items: flex-start;
+    /* padding: 0px 14px; */
   }
   .actions > .buttons,
   .actions > .inputs {
     width: 100%;
+    /* margin: 0 auto; */
   }
   .actions > .inputs {
     display: flex;

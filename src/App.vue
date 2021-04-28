@@ -56,6 +56,7 @@
     box-sizing: border-box;
     color: #2c3e50;
     font-family: "Comfortaa";
+    letter-spacing: 0;
   }
   .card {
     margin-bottom: 30px;

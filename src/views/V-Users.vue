@@ -1,5 +1,5 @@
 <template>
-  <v-col>
+  <v-col cols="12" md="10">
     <v-card 
       v-show="!loadingContent"
       v-for="(user, index) in userList"

@@ -1,8 +1,7 @@
 <template>
-  <v-col cols="2">
+  <v-col cols="2" class="d-none d-md-block">
     <v-sheet rounded="lg">
       <v-list>
-        <!-- <v-list-item-group v-model="item" color="primary"> -->
           <v-list-item
             v-for="(item, index) in li"
             :key="index"
@@ -38,7 +37,6 @@
             </div>
             
           </v-list-item>
-        <!-- </v-list-item-group> -->
 
       </v-list>
     </v-sheet>
@@ -65,7 +63,6 @@
 
     computed: {
       accountID(){ 
-        // console.log(this.$store.getters.accountData._id)
         return this.$store.getters.accountData._id
       }
     },

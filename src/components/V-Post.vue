@@ -49,6 +49,7 @@
         :showForm="showForm"
         :postID="post._id"
         @hide-form="showForm = false"
+        @update-post="updatePost()"
      />
     </v-row>
 
@@ -183,6 +184,14 @@
       triggerInputClick() {
         this.$refs.avatarBtn.click()
       },
+
+      async updatePost() {
+        this.localLoader = true
+        this.post = await getPostByID({ postID: this.postID })  
+        this.localLoader = false
+      },
+
+
       async updateImage() {
         const bodyFormData = new FormData()
         const file = this.$refs.avatarBtn

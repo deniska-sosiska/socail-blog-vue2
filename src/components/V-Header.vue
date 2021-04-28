@@ -15,15 +15,7 @@
 
       <VueAvatar v-else :userAvatar="accountData.avatar" />
 
-      <v-responsive max-width="360">
-        <v-text-field
-          dense
-          flat
-          hide-details
-          rounded
-          solo-inverted
-        ></v-text-field>
-      </v-responsive>
+      <h2>Travel Blog</h2>
 
       <template v-if="!loadingMainPage">
         <v-btn 
