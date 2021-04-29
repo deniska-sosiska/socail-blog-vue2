@@ -15,7 +15,7 @@ const actions = {
       if (payload.postedBy) postedBy = `&postedBy=${payload.postedBy}`
       if (payload.limit || payload.limit === 0) limit = `&limit=${payload.limit}` 
       if (payload.skip) skip = `&skip=${payload.skip}` 
-      // just...
+      
 
       const posts = await axiosApiInstance({
         url: `/posts?` + postedBy + limit + skip,

@@ -224,8 +224,11 @@
     .additionalContent p {
       font-size: 16px;
     }
+    .additionalContent {
+      padding-bottom: 15px;
+    }
   }
-
+  
   #hideBlock {
     display: none;
   }
