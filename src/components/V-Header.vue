@@ -3,12 +3,8 @@
     app
     color="blue lighten-2"
     flat
-    class="myContainer"
   >
     <v-container class="py-0 justify-center justify-md-space-between fill-height" width="100%">
-
-
-
       <v-list-item-avatar 
         v-if="!accountData.avatar"
         class="mr-4 d-none d-md-block"
@@ -51,8 +47,7 @@
 
     </v-container>
 
-    <v-btn class="pa-0 d-md-none"
-      style="showMenu"
+    <v-btn class="pa-0 d-md-none showMenu"
       @click="isShowLinks()"
     >
       {{ showLinks ? "Close" : "Menu" }}
@@ -81,7 +76,10 @@
         this.$store.commit("isShowLinks")
       },
       routerPush() {
-        this.$router.push({ name: 'Authorization', params: { flag: false } }).catch(()=>{})
+        this.$router.push({ 
+          name: 'Authorization',
+          params: { flag: false }
+        }).catch(()=>{})
       }
     }
   }
@@ -90,9 +88,6 @@
 <style scoped>
   .buttons {
     width: 200px;
-  }
-  .myContainer {
-    z-index: 95;
   }
   .showMenu {
     position: absolute;

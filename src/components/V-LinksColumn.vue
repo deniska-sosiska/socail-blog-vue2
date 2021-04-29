@@ -2,86 +2,82 @@
   <v-col 
     cols="12" md="2"
     class="d-none d-md-block showLinks"
-    :class="showLinks ? 'd-block overflow-hidden' : 'd-none'"
+    :class="showLinks ? 'd-block' : 'd-none'"
   >
-    
     <v-sheet>
       <v-list>
-          <v-list-item
-            v-for="(item, index) in li"
-            :key="index"
-            class="pa-0"
-            @click="closeMenu()"
+        <v-list-item
+          v-for="(item, index) in li"
+          :key="index"
+          class="pa-0"
+          @click="closeMenu()"
+        >
+          <router-link 
+            :to="item.link"
+            class="links"
           >
-            <router-link 
-              :to="item.link"
-              class="links"
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ item.text }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </router-link>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ item.text }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </router-link>
 
-          </v-list-item>
+        </v-list-item>
 
-          <v-divider class="my-2"></v-divider>
+        <v-divider class="my-2"></v-divider>
 
-          <!-- ====================================  -->
+        <!-- ====================================  -->
 
-          <v-list-item
-            class="pa-0 d-md-none"
-            v-if="!accountID"
+        <v-list-item
+          class="pa-0 d-md-none"
+          v-if="!accountID"
+        >
+          <div 
+            @click="routerPushAuthorization()"
+            class="links"
           >
-            <div 
-              @click="routerPushAuthorization()"
-              class="links"
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  Sign In
-                </v-list-item-title>
-              </v-list-item-content>
-            </div>
-            
-          </v-list-item>
-
-          <!-- <template v-else> -->
-            <v-list-item
-              class="pa-0 d-block"
-            >
-              <div
-                @click="routerPushProfile()"
-                class="links"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    Profile
-                  </v-list-item-title>
-                </v-list-item-content>
-              </div>
-            </v-list-item>
-
-            <v-list-item
-              class="pa-0 d-md-none"
-              v-if="accountID"
-            >
-              <div 
-                @click="clearUser()"
-                class="links"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    Sign Out
-                  </v-list-item-title>
-                </v-list-item-content>
-              </div>
-              
-            </v-list-item>
-          <!-- </template> -->
-
+            <v-list-item-content>
+              <v-list-item-title>
+                Sign In
+              </v-list-item-title>
+            </v-list-item-content>
+          </div>
           
+        </v-list-item>
+
+        <v-list-item
+          class="pa-0 d-block"
+        >
+          <div
+            @click="routerPushProfile()"
+            class="links"
+          >
+            <v-list-item-content>
+              <v-list-item-title>
+                Profile
+              </v-list-item-title>
+            </v-list-item-content>
+          </div>
+        </v-list-item>
+
+        <v-list-item
+          class="pa-0 d-md-none"
+          v-if="accountID"
+        >
+          <div 
+            @click="clearUser()"
+            class="links"
+          >
+            <v-list-item-content>
+              <v-list-item-title>
+                Sign Out
+              </v-list-item-title>
+            </v-list-item-content>
+          </div>
+          
+        </v-list-item>
+
       </v-list>
     </v-sheet>
     </v-col>
@@ -155,16 +151,11 @@
     .showLinks {
       position: fixed;
       z-index: 10;
-      /* overflow: hidden; */
       min-height: 100vh;
-      
+      padding: 0;
     }
     .showLinks > div {
       height: 100vh;
     }
   }
-  .overflow-hidden {
-    /* overflow: hidden; */
-  }
-
 </style>

@@ -127,7 +127,7 @@
             icon
             color="red"
           >
-            {{ post.likes.length + 7 }} 
+            {{ post.likes && post.likes.length + 7 }} 
             <v-icon>mdi-heart</v-icon>
           </v-btn>
 
@@ -263,10 +263,7 @@
     width: 80px;
     /* border: 1px solid; */
   }
-  @media (max-width: 1264px) {
-    .wrapper .buttons {
-      /* width: 80%; */
-      /* border: 1px solid */
+  .v-btn:not(.v-btn--round).v-size--default {
+      min-width: 100% !important;
     }
-  }
 </style>

@@ -29,6 +29,7 @@
           <v-btn
             :disabled="!valid"
             color="blue lighten-2"
+            dark
             @click="validate"
           >
             Submit
@@ -36,6 +37,7 @@
 
           <v-btn
             color="blue lighten-2"
+            dark
             @click="reset"
           >
             Reset Form
@@ -43,6 +45,7 @@
 
           <v-btn
             color="blue lighten-2"
+            dark
             @click="hideForm()"
           >
             Cancel

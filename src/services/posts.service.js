@@ -9,7 +9,7 @@ const getUserByID = async ({ userID }) => {
   } catch(err) {
     // console.error("Error in: Services/posts.service/getUserByID(): ", err)
     // console.warn('Заменил пользователя на "User deleted".')
-    return { avatar: '', name: "User deleted", _id: userID}
+    return { avatar: '', name: "User deleted", _id: userID, email: "User deleted" }
   }
 }
 
