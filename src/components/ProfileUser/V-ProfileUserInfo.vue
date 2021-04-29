@@ -18,7 +18,7 @@
 
     <div class="actions" v-if="accountID === user._id">
       <div
-        :class="!visibility ? 'visibility' : '' "
+        :id="hideBlock ? 'hideBlock' : '' "
         class="inputs"
       >
         <v-text-field
@@ -28,17 +28,27 @@
           :placeholder="placeholder"
           class="textFiled"
         ></v-text-field>
-        <v-btn @click="actions()"
-        > OK </v-btn>
-        <v-btn @click="visibility = false"
-        > Cansel </v-btn>
+        <div class="inputsButtons">
+          <v-btn
+            @click="actions()"
+          >OK
+          </v-btn>
+          <v-btn
+           @click="hideBlock = true"
+          >Cansel
+          </v-btn>
+        </div>
       </div>
 
       <div class="buttons">
         <v-btn
+          color="blue lighten-2"
+          dark
           @click="changeNameBtn()"
         > Change name </v-btn>
         <v-btn
+          color="blue lighten-2"
+          dark
           @click="deleteUserBtn()"
         > Delete my account </v-btn>
       </div>
@@ -71,7 +81,7 @@
       userAnswer: "",
       placeholder: "",
       nameInput: "",
-      visibility: false,
+      hideBlock: true,
 
       arrayNameInput: [
         "Name",
@@ -94,7 +104,7 @@
               method: "patch"
             })
             this.setCurrentAccountData(res)
-            this.visibility = false
+            this.hideBlock = true
           }
 
         } else { //if delete account
@@ -106,7 +116,7 @@
 
             this.$router.push({ name: "Posts" })
             this.clearCurrentAccountData()
-            this.visibility = false
+            this.hideBlock = true
           }
           else {
             alert('You must type: "' + this.arrayPlaceholder[1] + '" for delete account')
@@ -117,13 +127,13 @@
       changeNameBtn() {
         this.placeholder = this.arrayPlaceholder[0]
         this.nameInput = this.arrayNameInput[0]
-        this.visibility = true
+        this.hideBlock = false
         this.userAnswer = ''
       },
       deleteUserBtn() {
         this.placeholder = 'type: "' + this.arrayPlaceholder[1] + '" for delete'
         this.nameInput = this.arrayNameInput[1]
-        this.visibility = true
+        this.hideBlock = false
         this.userAnswer = ''
       },
 
@@ -161,29 +171,63 @@
   .actions {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    /* padding: 0px 14px; */
   }
   .actions > .buttons,
   .actions > .inputs {
     width: 100%;
-    /* margin: 0 auto; */
   }
   .actions > .inputs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 10px;
   }
+  .actions > .inputs  button {
+    margin-left: 10px
+  }
+
+
   .actions > .buttons {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .actions > .buttons button {
+    min-width: 45%;
+    margin-bottom: 10px;
   }
 
   .textFiled {
     padding-top: 0px;
-    max-width: 300px
   }
-  .visibility {
-    visibility: hidden
+
+  @media (max-width: 1264px) {
+    .inputsButtons {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+    .actions > .inputs  button {
+      width: 48%;
+      margin-left: 0px 
+    }
+    .actions > .buttons button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
   }
+  @media (max-width: 420px) {
+    .infoColumn #name {
+      font-size: 26px;
+    }
+    .additionalContent p {
+      font-size: 16px;
+    }
+  }
+
+  #hideBlock {
+    display: none;
+  }
+
 </style>

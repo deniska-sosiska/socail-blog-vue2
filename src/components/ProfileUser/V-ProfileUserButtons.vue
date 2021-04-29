@@ -50,15 +50,26 @@
 
 <style scoped>
   .buttons {
-    padding: 15px 0px ;
+    padding: 15px;
     width: 100%;
     border: 5px solid #ccc;
+
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: wrap;
+    
   }
-  .buttons > button:first-child {
-    margin-right: 5px;
-    margin-left: 15px;
+  .buttons > button {
+    width: 45%;
   }
   button {
     letter-spacing: normal
+  }
+
+  @media (max-width: 1264px) {
+    .buttons > button {
+      width: 95%;
+    }
   }
 </style>

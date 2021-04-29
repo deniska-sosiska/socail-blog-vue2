@@ -28,21 +28,21 @@
       <div class="buttons d-flex justify-end flex-wrap">
           <v-btn
             :disabled="!valid"
-            color="blue lighten-1"
+            color="blue lighten-2"
             @click="validate"
           >
             Submit
           </v-btn>
 
           <v-btn
-            color="blue lighten-1"
+            color="blue lighten-2"
             @click="reset"
           >
             Reset Form
           </v-btn>
 
           <v-btn
-            color="blue lighten-1"
+            color="blue lighten-2"
             @click="hideForm()"
           >
             Cancel

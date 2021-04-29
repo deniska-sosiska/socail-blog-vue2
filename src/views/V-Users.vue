@@ -4,7 +4,6 @@
       v-show="!loadingContent"
       v-for="(user, index) in userList"
       :key="index"
-      max-width="90vw"
       class="mx-auto"
     >
       <VueUser :user="user"/>

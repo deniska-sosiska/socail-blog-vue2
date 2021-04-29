@@ -1,37 +1,38 @@
 <template>
   <v-menu
-      bottom
-      origin="center center"
-      transition="scale-transition"
-      :offset-y="true"
-    >
-      <!-- :open-on-hover="true" -->
+    bottom
+    left
+    origin="center center"
+    transition="scale-transition"
+    :offset-y="true"
+  >
+    <!-- :open-on-hover="true" -->
 
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          v-bind="attrs"
-          v-on="on"
-        >
-          Menu
-        </v-btn>
-      </template>
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn
+        v-bind="attrs"
+        v-on="on"
+      >
+        Menu
+      </v-btn>
+    </template>
 
-      <v-list>
+    <v-list>
 
-        <v-list-item>
-          <button @click="routerPush()">
-            <p>Name: {{ accountData.name }}</p>
-          </button>
-        </v-list-item>
+      <v-list-item>
+        <button @click="routerPush()">
+          <p>Name: {{ accountData.name }}</p>
+        </button>
+      </v-list-item>
 
-        <v-list-item>
-          <button @click="clearUser()">
-            <p>Sign Out</p>
-          </button>
-        </v-list-item>
+      <v-list-item>
+        <button @click="clearUser()">
+          <p>Sign Out</p>
+        </button>
+      </v-list-item>
 
-      </v-list>
-    </v-menu>
+    </v-list>
+  </v-menu>
 </template>
 
 <script>

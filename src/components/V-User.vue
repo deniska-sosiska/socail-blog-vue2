@@ -1,31 +1,35 @@
 <template>
   <div class="card">
     <v-list-item>
-      <VueAvatar :userAvatar="user.avatar" />
-      <v-list-item-content>
-        <v-list-item-title class="headline">
-          {{ user.name }}
-        </v-list-item-title>
-        <v-list-item-subtitle>
-          {{ getTimeCreated(user.dateCreated) }}
-        </v-list-item-subtitle>
-      </v-list-item-content>
 
-      <v-list-item-content>
-        <v-list-item-title class="headline">
-          {{ user.email }}
-        </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
+        <VueAvatar :userAvatar="user.avatar" />
+        <v-list-item-content>
+          <v-list-item-title class="headline">
+            {{ user.name }}
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            {{ getTimeCreated(user.dateCreated) }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+
+        <v-list-item-content class="d-none d-sm-block">
+          <v-list-item-title class="headline">
+            {{ user.email }}
+          </v-list-item-title>
+        </v-list-item-content>
 
     <v-card-actions>
-      <router-link :to='{ name: "Profile", params: { userID: user._id } }'>
-        <v-btn text color="blue lighten-1"> 
-          Show more 
-        </v-btn>
-      </router-link>
-      <v-spacer></v-spacer>
+      <v-btn
+        class="btn"
+        :to='{ name: "Profile", params: { userID: user._id } }'
+        color="blue lighten-2"
+        dark
+      > 
+        Show more 
+      </v-btn>
     </v-card-actions>
+    </v-list-item>
+
   </div>
 </template>
 
@@ -56,7 +60,26 @@
 </script>
 
 <style scoped>
-  .card {
+  .myCard {
     display: flex;
+  }
+  @media (max-width: 600px) {
+    .v-list-item {
+      flex-wrap: wrap;
+    }
+    .v-list-item__content {
+      flex: 0 0 80%;
+    }
+    .v-card__actions {
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .v-card__actions a {
+      width: 100%;
+      
+    }
   }
 </style>

@@ -3,48 +3,61 @@
     app
     color="blue lighten-2"
     flat
+    class="myContainer"
   >
-    <v-container class="py-0 justify-sm-space-between fill-height">
+    <v-container class="py-0 justify-center justify-md-space-between fill-height" width="100%">
+
+
 
       <v-list-item-avatar 
         v-if="!accountData.avatar"
-        class="mr-10"
+        class="mr-4 d-none d-md-block"
         color="blue"
         size="32"
       ></v-list-item-avatar>
 
-      <VueAvatar v-else :userAvatar="accountData.avatar" />
+      <VueAvatar v-else :userAvatar="accountData.avatar" class="d-none d-md-block"/>
 
-      <h2>Travel Blog</h2>
+      <h2 style="color: #fff;">Travel Blog</h2>
 
-      <template v-if="!loadingMainPage">
+      <div class="d-none d-md-block">
+        <template v-if="!loadingMainPage">
+          <v-btn 
+            v-if="!accountData.email"
+            class="buttons"
+            @click="routerPush()"
+          >
+            Sign In/Sign Up
+          </v-btn>
+
+          <div
+            v-else
+            class="buttons"
+          >
+            <VueDropDownMenu /> 
+          </div>
+        </template>
+        
         <v-btn 
-          v-if="!accountData.email"
-          class="buttons"
-          @click="routerPush()"
-        >
-          Sign In/Sign Up
-        </v-btn>
-
-        <div
           v-else
           class="buttons"
         >
-          <VueDropDownMenu />
-        </div>
-      </template>
-
-      <v-btn 
-        v-else
-        class="buttons"
-      >
-        <VuePreLoader
-          :size="35"
-          forHeader="little"
-        />
-      </v-btn>
+          <VuePreLoader
+            :size="35"
+            forHeader="little"
+          />
+        </v-btn>
+      </div>
 
     </v-container>
+
+    <v-btn class="pa-0 d-md-none"
+      style="showMenu"
+      @click="isShowLinks()"
+    >
+      {{ showLinks ? "Close" : "Menu" }}
+    </v-btn>
+
   </v-app-bar>
 </template>
 
@@ -61,13 +74,14 @@
       VueAvatar
     },
 
-    computed:  mapGetters(['accountData', 'loadingMainPage']),
+    computed:  mapGetters(['showLinks', 'accountData', 'loadingMainPage']),
 
     methods: {
+      isShowLinks() {
+        this.$store.commit("isShowLinks")
+      },
       routerPush() {
-        if (this.$route.fullPath != "/authorization") 
-          this.$router.push({ name: 'Authorization', params: { flag: false } })
-          // .catch(()=>{})
+        this.$router.push({ name: 'Authorization', params: { flag: false } }).catch(()=>{})
       }
     }
   }
@@ -76,5 +90,13 @@
 <style scoped>
   .buttons {
     width: 200px;
+  }
+  .myContainer {
+    z-index: 95;
+  }
+  .showMenu {
+    position: absolute;
+    right: 12px;
+    z-index: 100;
   }
 </style>

@@ -3,15 +3,12 @@
     <v-hover v-slot:default="{ hover }">
       <v-img 
         :src="avatarUrl()"
-        width="100%"
-        height="410px"
+        class="avatar"
       >
         <v-expand-transition v-if="accountID === user._id"> 
           <div
             v-if="hover"
-            class="d-flex transition-fast-in-fast-out light-blue v-card--reveal display-2"
-            style="height: 25%"
-            
+            class="hover d-flex transition-fast-in-fast-out light-blue v-card--reveal display-2"            
           >
 
             <VueProfileUserButtons
@@ -52,3 +49,29 @@
     }
   }
 </script>
+
+<style scoped>
+  .avatar {
+    width: 100%;
+    height: 400px;
+  }
+  .hover {
+    height: 20%;
+  }
+
+
+  @media (max-width: 1264px) {
+    .hover {
+      height: 35%;
+    }
+  }
+
+  @media (max-width: 495px) {
+    .avatar {
+      height: 220px;
+    }
+    .hover {
+      height: 55%;
+    }
+  }
+</style>

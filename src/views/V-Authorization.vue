@@ -15,14 +15,14 @@
 
       <div
         class="button"
-        :class="buttonActive ? 'active' : '' "
+        :class="buttonActive ? 'active whiteColor' : '' "
         @click="buttonActive = true"
       ><button>Sign In</button>
       </div>
 
       <div 
         class="button"
-        :class="!buttonActive ? 'active' : '' "
+        :class="!buttonActive ? 'active whiteColor' : '' "
         @click="buttonActive = false"
       ><button>Sign Up</button>
 
@@ -93,6 +93,8 @@
     text-align: center;
     padding: 16px;
   }
+  .whiteColor { color: #fff;}
+
   .button:hover {
     background-color: #BBDEFB;
   }

@@ -16,13 +16,16 @@
         v-if="accountID === userID"
         class="profile"
       >
-        <v-btn 
-          width="100%"
-          color="blue lighten-1"
-          @click="showForm = true"        
-        >
-          want to create new post?
-        </v-btn>
+        <v-col>
+          <v-btn 
+            width="100%"
+            color="blue lighten-2"
+            dark
+            @click="showForm = true"        
+          >
+            want to create new post?
+          </v-btn>
+        </v-col>
         <VueCreatePost
           v-if="accountID == userID"
           :userID="userID"

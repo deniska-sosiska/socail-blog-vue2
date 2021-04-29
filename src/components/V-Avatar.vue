@@ -1,6 +1,6 @@
 <template>
   <v-avatar
-    class="mr-10"
+    class="avatar"
     color="grey darken-1"
     size="32"
   >
@@ -30,3 +30,9 @@
     }
   }
 </script>
+
+<style scoped>
+  .avatar {
+    margin-right: 15px;
+  }
+</style>

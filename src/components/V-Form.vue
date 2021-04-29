@@ -38,14 +38,20 @@
 
     <div class="buttons">
       <v-btn
+        color="blue lighten-2"
+        dark
         @click="registrationORauthorization()"
       >Submit</v-btn>
 
       <v-btn
+        color="blue lighten-2"
+        dark
         @click="resetForm()"
       >Reset form</v-btn>
 
       <v-btn
+        color="blue lighten-2"
+        dark
         @click="$router.push({ name: 'Posts' })" 
       >Cansel</v-btn>
     </div>
@@ -186,9 +192,20 @@
   .buttons {
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
   }
   button {
     margin-left: 25px;
+  }
+
+  @media (max-width: 520px) {
+    form {
+      padding: 10px 25px;
+    }
+    button {
+      margin: 8px 0px;
+      width: 100%;
+    }
   }
 
   .errMess {

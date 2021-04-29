@@ -2,11 +2,11 @@
   <v-app id="inspire">
     <VueHeader />
 
-    <v-main class="grey lighten-3">
-      <v-container>
+    <v-main class="grey lighten-3" :class=" showLinks ? 'overflow-hidden' : '' ">
+      <v-container class="myContainer">
         <v-row>
 
-          <VueFirstColumn  />
+          <VueLinksColumnn  />
 
           <router-view v-show="!loadingMainPage"></router-view>
           <VuePreLoader v-show="loadingMainPage" />
@@ -19,7 +19,7 @@
 
 <script>
   import VueHeader from "./components/V-Header"
-  import VueFirstColumn from "./components/V-FirstColumn"
+  import VueLinksColumnn from "./components/V-LinksColumn"
 
   import { mapGetters, mapActions } from "vuex"
 
@@ -27,10 +27,10 @@
     name: "App",
     components: {
       VueHeader,
-      VueFirstColumn
+      VueLinksColumnn
     },
 
-    computed: mapGetters(['loadingMainPage']),
+    computed: mapGetters(['loadingMainPage', 'showLinks']),
 
     created() {
       localStorage.removeItem("accountData")
