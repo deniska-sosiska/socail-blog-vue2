@@ -9,25 +9,19 @@ const mutations = {
 const actions = {
   async fetchAllPosts({ commit }, payload = {}) {
     commit("isLoadingContent")
-    try {
-      let postedBy = '', limit = '', skip = ''
-      
-      if (payload.postedBy) postedBy = `&postedBy=${payload.postedBy}`
-      if (payload.limit || payload.limit === 0) limit = `&limit=${payload.limit}` 
-      if (payload.skip) skip = `&skip=${payload.skip}` 
-      
+    let postedBy = '', limit = '', skip = ''
+    
+    if (payload.postedBy) postedBy = `&postedBy=${payload.postedBy}`
+    if (payload.limit || payload.limit === 0) limit = `&limit=${payload.limit}` 
+    if (payload.skip) skip = `&skip=${payload.skip}` 
 
-      const posts = await axiosApiInstance({
-        url: `/posts?` + postedBy + limit + skip,
-        method: "get"
-      })
+    const posts = await axiosApiInstance({
+      url: `/posts?` + postedBy + limit + skip,
+      method: "get"
+    })
 
-      commit("setPosts", posts)
-    } catch(err) {
-      console.error("Error in: Store/Posts.js/fetchAllPosts(): ", err)
-    } finally {
-      commit("isLoadingContent")
-    }
+    commit("setPosts", posts)
+    commit("isLoadingContent")
   },
 }
 

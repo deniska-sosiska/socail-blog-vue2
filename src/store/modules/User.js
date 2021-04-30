@@ -21,36 +21,26 @@ const actions = {
     commit("isLoadingMainPage")
     localStorage.setItem("token", payload)
 
-    try {
-      const res = await axiosApiInstance({
-        url: `/auth/user`,
-        method: "get",
-      })
-      commit("setCurrentAccountData", res)
-    } catch(err) {
-      console.error('Error in: Store/User.js/getAccountDataByToken(): ', err)
-      commit("clearCurrentAccountData")
-    } finally {
-      commit("isLoadingMainPage")
-    }
+    const res = await axiosApiInstance({
+      url: `/auth/user`,
+      method: "get",
+    })
+
+    commit("setCurrentAccountData", res)
+    commit("isLoadingMainPage")
   },
 
   async changeAvatarAndUpdateUser({ commit }, payload) {
     commit("isLoadingContent")
 
-    try {
-      const res = await axiosApiInstance({
-        url: `/users/upload/${payload.userID}`,
-        data: payload.bodyFormData,
-        method: "put"
-      })
-      commit("setCurrentAccountData", res)
-      
-    } catch(err) {
-      console.error('Error in: Store/User.js/changeAvatarAndUpdateUser(): ', err)
-    } finally {
-      commit("isLoadingContent")
-    }
+    const res = await axiosApiInstance({
+      url: `/users/upload/${payload.userID}`,
+      data: payload.bodyFormData,
+      method: "put"
+    })
+
+    commit("setCurrentAccountData", res)
+    commit("isLoadingContent")
   }
 }
 

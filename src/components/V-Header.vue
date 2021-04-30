@@ -8,7 +8,7 @@
       <v-list-item-avatar 
         v-if="!accountData.avatar"
         class="mr-4 d-none d-md-block"
-        color="blue"
+        color="blue lighten-2"
         size="32"
       ></v-list-item-avatar>
 

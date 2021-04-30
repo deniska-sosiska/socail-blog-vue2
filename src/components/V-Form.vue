@@ -76,7 +76,7 @@
     data: () => ({
       login: '',
       password: 'deniska3',
-      email: 'denchikarabik1@gmail.com',
+      email: 'denchikarabik@gmail.com',
       errorMessage: '',
       errorMessageFlag: false,
       defaultErr: "All fields must be filled",
