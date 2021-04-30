@@ -1,8 +1,8 @@
 # Travel Blog
 ***
 Веб-додаток ділиться на 2 частини:
-* Клієнтська частина(Front-end): [link](https://github.com/deniska-sosiska/CollegeBook-MEVN-stack/tree/main/client)
-* Серверна частина або API(Back-end): [link](https://github.com/deniska-sosiska/CollegeBook-MEVN-stack/tree/main/server)
+* Клієнтська частина(Front-end): [link](https://github.com/deniska-sosiska/blog)
+* Серверна частина або API(Back-end): [link](https://nodejs-test-api-blog.herokuapp.com/api-docs/#/)
 
 
 ### Технологічний стек
@@ -16,7 +16,7 @@
 | Vuetify    | Одна з найбільших бібліотек UI-компонентів для Vue                                    | https://vuetifyjs.com/   |
 | Webpack    | Javascript збірник модулів                                                            | https://webpack.js.org/  |
 
-![Головна сторінка веб-додатку](https://github.com/deniska-sosiska/CollegeBook-MEVN-stack/blob/main/client/src/assets/mainpage.png)
+![Головна сторінка веб-додатку](https://github.com/deniska-sosiska/blog/blob/master/public/MainPage.png)
 
 ---
 ## Project setup
